@@ -72,9 +72,6 @@
 			isa = PBXGroup;
 			children = (
 				5F4C1B7F25D3271D006A84F9 /* ViewControllers */,
-				5F4C1B8125D3272E006A84F9 /* Managers */,
-				5F4C1B8025D32724006A84F9 /* Models */,
-				5F4C1B7E25D32711006A84F9 /* Views */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -105,13 +102,6 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		5F4C1B7E25D32711006A84F9 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		5F4C1B7F25D3271D006A84F9 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,20 +109,6 @@
 				5F4C1B8F25D328CF006A84F9 /* Tab2 */,
 			);
 			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		5F4C1B8025D32724006A84F9 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		5F4C1B8125D3272E006A84F9 /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Managers;
 			sourceTree = "<group>";
 		};
 		5F4C1B8225D32750006A84F9 /* Tab1 */ = {
