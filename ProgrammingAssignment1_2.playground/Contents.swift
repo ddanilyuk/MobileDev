@@ -150,7 +150,10 @@ final class TimeDD {
     public let seconds: UInt
     
     public var date: Date {
-        return DateFormatter.short.date(from: "\(hours):\(minutes):\(seconds)") ?? Date()
+        return DateFormatter.h24Formatter.date(from: "\(hours):\(minutes):\(seconds)") ?? Date()
+    }
+    public var dateComponents: DateComponents {
+        return DateComponents(hour: Int(hours), minute: Int(minutes), second: Int(seconds))
     }
     
     // MARK: - Lifecycle
@@ -177,27 +180,49 @@ final class TimeDD {
     
     // MARK: - Public methods
     
-    public func currentTime() -> String {
+    public func currentTime(type: TimeType = .h12) -> String {
         
-        return DateFormatter.full.string(from: date)
+        return type.formatter.string(from: date)
     }
     
     public func sum(with item: TimeDD) -> TimeDD {
         
-        var newDate = date
-        newDate.addTimeInterval(item.date.timeIntervalSince(Date.clear))
-        return TimeDD(date: newDate)
+        return TimeDD(date: dateComponents.adding(to: item.date) ?? Date())
     }
     
     public func difference(with item: TimeDD) -> TimeDD {
         
-        var newDate = date
-        newDate.addTimeInterval(-item.date.timeIntervalSince(Date.clear))
-        return TimeDD(date: newDate)
+        return TimeDD(date: item.dateComponents.removing(from: date) ?? Date())
     }
     
-    // MAYBE USE DateComponents!!!!
-    let dateComp = DateComponents()
+    // MARK: - Class methods
+    
+    static func +(lhs: TimeDD, rhs: TimeDD) -> TimeDD {
+        return lhs.sum(with: rhs)
+    }
+    
+    static func -(lhs: TimeDD, rhs: TimeDD) -> TimeDD {
+        return lhs.difference(with: rhs)
+    }
+}
+
+// MARK: - TimeType
+
+extension TimeDD {
+    
+    enum TimeType {
+        case h12
+        case h24
+        
+        var formatter: DateFormatter {
+            switch self {
+            case .h12:
+                return DateFormatter.h12Formatter
+            case .h24:
+                return DateFormatter.h24Formatter
+            }
+        }
+    }
 }
 
 // MARK: - Date + Ext
@@ -215,24 +240,20 @@ extension Date {
     var seconds: UInt {
         return UInt(Calendar.current.component(.second, from: self))
     }
-    
-    static var clear: Date {
-        return DateFormatter.short.date(from: "00:00:00")!
-    }
 }
 
 // MARK: - DateFormatter + Ext
 
 extension DateFormatter {
     
-    static var full: DateFormatter {
+    static var h12Formatter: DateFormatter {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "hh:mm:ss a"
         return formatter
     }
     
-    static var short: DateFormatter {
+    static var h24Formatter: DateFormatter {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm:ss"
@@ -240,27 +261,66 @@ extension DateFormatter {
     }
 }
 
+// MARK: - DateComponents + Ext
+
+extension DateComponents {
+    
+    var calendar: Calendar {
+        return Calendar.current
+    }
+    
+    var reversed: DateComponents {
+        
+        return DateComponents(hour: -(hour ?? 0),
+                              minute: -(minute ?? 0),
+                              second: -(second ?? 0))
+    }
+    
+    func adding(to date: Date) -> Date? {
+        return calendar.date(byAdding: self, to: date)
+    }
+    
+    func removing(from date: Date) -> Date? {
+        return calendar.date(byAdding: reversed, to: date)
+    }
+}
+
 // MARK: - Частина 2. Результати.
 
+print("Частина 2")
 print()
 
 let time1 = TimeDD(date: Date())
 let time2 = TimeDD()
 let time3 = TimeDD(hours: 16, minutes: 2, seconds: 8)
 let time4 = TimeDD(hours: 0, minutes: 0, seconds: 1)
+let time5 = TimeDD(hours: 23, minutes: 59, seconds: 59)
+let time6 = TimeDD(hours: 12, minutes: 0, seconds: 1)
 
+print("Time1 12h: \(time1.currentTime()) | 24h: \(time1.currentTime(type: .h24))")
+print("Time2 12h: \(time2.currentTime()) | 24h: \(time2.currentTime(type: .h24))")
+print("Time3 12h: \(time3.currentTime()) | 24h: \(time3.currentTime(type: .h24))")
+print("Time4 12h: \(time4.currentTime()) | 24h: \(time4.currentTime(type: .h24))")
+print("Time5 12h: \(time5.currentTime()) | 24h: \(time5.currentTime(type: .h24))")
+print("Time6 12h: \(time6.currentTime()) | 24h: \(time6.currentTime(type: .h24))")
 
-print(time1.date)
-print(time2.date)
-print(time3.date)
-print(time4.date)
+print()
 
+let sum = time5.sum(with: time6)
+print("Sum with: \(time5.currentTime(type: .h24)) and \(time6.currentTime(type: .h24))")
+print("Result 12h: \(sum.currentTime()) | 24h: \(sum.currentTime(type: .h24))")
+print()
 
-print(time1.currentTime())
-print(time2.currentTime())
-print(time3.currentTime())
-print(time4.currentTime())
+let difference = time2.difference(with: time4)
+print("Difference with: \(time2.currentTime(type: .h24)) and \(time4.currentTime(type: .h24))")
+print("Result 12h: \(difference.currentTime()) | 24h: \(difference.currentTime(type: .h24))")
+print()
 
-let sum = time1.sum(with: time4)
-print(sum.date)
-print(sum.currentTime())
+let sumClass = time2 + time4
+print("Sum using class method with: \(time2.currentTime(type: .h24)) and \(time4.currentTime(type: .h24))")
+print("Result 12h: \(sumClass.currentTime()) | 24h: \(sumClass.currentTime(type: .h24))")
+print()
+
+let differenceClass = time1 - time3
+print("Difference using class method with: \(time1.currentTime(type: .h24)) and \(time3.currentTime(type: .h24))")
+print("Result 12h: \(differenceClass.currentTime()) | 24h: \(differenceClass.currentTime(type: .h24))")
