@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Movie: Codable {
+struct Movie {
     
     let title: String
     let year: String
@@ -18,6 +18,11 @@ struct Movie: Codable {
     var posterImage: UIImage? {
         return poster.isEmpty ? UIImage(systemName: "film") : UIImage(named: poster)
     }
+}
+
+// MARK: - Codable
+
+extension Movie: Codable {
     
     enum CodingKeys: String, CodingKey {
         
