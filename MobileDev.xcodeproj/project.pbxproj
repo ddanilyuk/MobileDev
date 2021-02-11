@@ -15,6 +15,8 @@
 		5F4C1B8925D327F1006A84F9 /* UIStoryboard+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4C1B8825D327F1006A84F9 /* UIStoryboard+Ext.swift */; };
 		5F4C1B8D25D32874006A84F9 /* UIApplication+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4C1B8C25D32874006A84F9 /* UIApplication+Keyboard.swift */; };
 		5F4C1B9125D328DF006A84F9 /* Tab2RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4C1B9025D328DF006A84F9 /* Tab2RootViewController.swift */; };
+		5FAE16F125D3FCE90058A105 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAE16F025D3FCE90058A105 /* GraphView.swift */; };
+		5FAE16F625D3FD000058A105 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAE16F525D3FD000058A105 /* ChartView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		5F4C1B8825D327F1006A84F9 /* UIStoryboard+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Ext.swift"; sourceTree = "<group>"; };
 		5F4C1B8C25D32874006A84F9 /* UIApplication+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Keyboard.swift"; sourceTree = "<group>"; };
 		5F4C1B9025D328DF006A84F9 /* Tab2RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab2RootViewController.swift; sourceTree = "<group>"; };
+		5FAE16F025D3FCE90058A105 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		5FAE16F525D3FD000058A105 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				5F4C1B9025D328DF006A84F9 /* Tab2RootViewController.swift */,
+				5FAE16EF25D3FCBA0058A105 /* Views */,
 			);
 			path = Tab2;
 			sourceTree = "<group>";
@@ -167,6 +172,15 @@
 				5F4C1B6D25D32679006A84F9 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		5FAE16EF25D3FCBA0058A105 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5FAE16F525D3FD000058A105 /* ChartView.swift */,
+				5FAE16F025D3FCE90058A105 /* GraphView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,8 +256,10 @@
 				5F4C1B9125D328DF006A84F9 /* Tab2RootViewController.swift in Sources */,
 				5F4C1B6725D32677006A84F9 /* Tab1RootViewController.swift in Sources */,
 				5F4C1B8D25D32874006A84F9 /* UIApplication+Keyboard.swift in Sources */,
+				5FAE16F625D3FD000058A105 /* ChartView.swift in Sources */,
 				5F4C1B6325D32677006A84F9 /* AppDelegate.swift in Sources */,
 				5F4C1B8925D327F1006A84F9 /* UIStoryboard+Ext.swift in Sources */,
+				5FAE16F125D3FCE90058A105 /* GraphView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
