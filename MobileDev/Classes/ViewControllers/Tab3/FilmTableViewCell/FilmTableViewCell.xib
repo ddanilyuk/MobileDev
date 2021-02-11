@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,18 +18,13 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="118"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gON-R0-k44">
-                        <rect key="frame" x="16" y="9" width="75" height="100"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="film" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="gON-R0-k44">
+                        <rect key="frame" x="16" y="10" width="75" height="97.5"/>
+                        <color key="tintColor" name="AccentColor"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="gON-R0-k44" secondAttribute="height" multiplier="80:137" id="YMT-0u-dU4"/>
                             <constraint firstAttribute="height" constant="100" id="d2p-sY-fpt"/>
                             <constraint firstAttribute="width" constant="75" id="ijo-se-GBs"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="YMT-0u-dU4"/>
-                            </mask>
-                        </variation>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="DmX-z6-H6R">
                         <rect key="frame" x="99" y="8" width="213" height="102"/>
@@ -76,22 +72,9 @@
                     <constraint firstItem="gON-R0-k44" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Ih3-Pq-4rM"/>
                     <constraint firstItem="gON-R0-k44" firstAttribute="centerY" secondItem="DmX-z6-H6R" secondAttribute="centerY" id="OHS-RD-VGd"/>
                     <constraint firstAttribute="bottom" secondItem="DmX-z6-H6R" secondAttribute="bottom" constant="8" id="Qr6-4n-nn2"/>
-                    <constraint firstItem="gON-R0-k44" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.15" id="XLV-9c-4YT"/>
                     <constraint firstAttribute="trailing" secondItem="DmX-z6-H6R" secondAttribute="trailing" constant="8" id="cGC-bM-OI0"/>
-                    <constraint firstItem="gON-R0-k44" firstAttribute="height" secondItem="DmX-z6-H6R" secondAttribute="height" id="faR-3x-G9Z"/>
                     <constraint firstItem="DmX-z6-H6R" firstAttribute="leading" secondItem="gON-R0-k44" secondAttribute="trailing" constant="8" id="vh1-Z2-T2T"/>
                 </constraints>
-                <variation key="default">
-                    <mask key="constraints">
-                        <exclude reference="XLV-9c-4YT"/>
-                        <exclude reference="faR-3x-G9Z"/>
-                    </mask>
-                </variation>
-                <variation key="heightClass=compact">
-                    <mask key="constraints">
-                        <include reference="XLV-9c-4YT"/>
-                    </mask>
-                </variation>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
@@ -104,6 +87,10 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="film" catalog="system" width="128" height="93"/>
+        <namedColor name="AccentColor">
+            <color red="0.10196078431372549" green="0.098039215686274508" blue="0.11372549019607843" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

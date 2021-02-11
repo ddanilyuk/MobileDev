@@ -17,10 +17,19 @@ final class FilmTableViewCell: UITableViewCell {
     @IBOutlet weak var yearLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
     
+    // MARK: - Lifecycle
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         selectionStyle = .none
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        yearLabel.isHidden = false
+        typeLabel.isHidden = false
     }
 }
 

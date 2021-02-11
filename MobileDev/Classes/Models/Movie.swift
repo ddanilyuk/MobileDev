@@ -16,7 +16,7 @@ struct Movie: Codable {
     let poster: String
     
     var posterImage: UIImage? {
-        return poster.isEmpty ? nil : UIImage(named: poster)
+        return poster.isEmpty ? UIImage(systemName: "film") : UIImage(named: poster)
     }
     
     enum CodingKeys: String, CodingKey {

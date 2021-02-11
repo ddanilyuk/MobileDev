@@ -33,13 +33,6 @@ final class Tab3RootViewController: UIViewController {
         setupTableView()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        tableView.layoutIfNeeded()
-//        tableDirector.reload()
-    }
-    
     private func setupTableView() {
         
         tableView.tableFooterView = UIView()
