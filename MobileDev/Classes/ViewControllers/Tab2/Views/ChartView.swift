@@ -58,7 +58,7 @@ final class ChartView: UIView {
         
         let line = UIBezierPath()
         line.lineWidth = 1.0
-        UIColor.black.setStroke()
+        UIColor.label.setStroke()
         
         let xEndPoint = CGPoint(x: width - offset, y: height - offset)
         let yEndPoint = CGPoint(x: width / 2, y: 0)

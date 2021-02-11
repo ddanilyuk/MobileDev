@@ -33,7 +33,7 @@ extension FilmTableViewCell: ConfigurableCell {
     func configure(with model: Movie) {
         
         nameLabel.text = model.title
-        posterImageView.image = model.image
+        posterImageView.image = model.posterImage
         
         if model.year.isEmpty {
             yearLabel.isHidden = true

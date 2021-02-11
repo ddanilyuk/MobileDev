@@ -13,7 +13,7 @@ final class GraphView: UIView {
     
     private var units = [Unit(value: 0.3, color: .orange),
                          Unit(value: 0.3, color: .green),
-                         Unit(value: 0.4, color: .black)]
+                         Unit(value: 0.4, color: .label)]
     
     // MARK: - Drawing
     

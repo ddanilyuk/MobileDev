@@ -15,8 +15,7 @@ struct Movie: Codable {
     let type: String
     let poster: String
     
-    var image: UIImage? {
-        
+    var posterImage: UIImage? {
         return poster.isEmpty ? nil : UIImage(named: poster)
     }
     

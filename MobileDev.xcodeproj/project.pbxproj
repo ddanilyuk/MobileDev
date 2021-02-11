@@ -8,14 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5F0D3E4F25D5919A0060E84C /* MoviesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0D3E4E25D5919A0060E84C /* MoviesManager.swift */; };
-		5F0D3E5C25D597EE0060E84C /* Poster_06.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5F0D3E5425D597EC0060E84C /* Poster_06.jpg */; };
-		5F0D3E5D25D597EE0060E84C /* Poster_08.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5F0D3E5525D597EC0060E84C /* Poster_08.jpg */; };
-		5F0D3E5E25D597EE0060E84C /* Poster_10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5F0D3E5625D597EC0060E84C /* Poster_10.jpg */; };
-		5F0D3E5F25D597EE0060E84C /* Poster_01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5F0D3E5725D597EC0060E84C /* Poster_01.jpg */; };
-		5F0D3E6025D597EE0060E84C /* Poster_05.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5F0D3E5825D597EE0060E84C /* Poster_05.jpg */; };
-		5F0D3E6125D597EE0060E84C /* Poster_07.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5F0D3E5925D597EE0060E84C /* Poster_07.jpg */; };
-		5F0D3E6225D597EE0060E84C /* Poster_02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5F0D3E5A25D597EE0060E84C /* Poster_02.jpg */; };
-		5F0D3E6325D597EE0060E84C /* Poster_03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5F0D3E5B25D597EE0060E84C /* Poster_03.jpg */; };
 		5F4C1B6325D32677006A84F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4C1B6225D32677006A84F9 /* AppDelegate.swift */; };
 		5F4C1B6725D32677006A84F9 /* Tab1RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4C1B6625D32677006A84F9 /* Tab1RootViewController.swift */; };
 		5F4C1B6A25D32677006A84F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F4C1B6825D32677006A84F9 /* Main.storyboard */; };
@@ -37,14 +29,6 @@
 
 /* Begin PBXFileReference section */
 		5F0D3E4E25D5919A0060E84C /* MoviesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesManager.swift; sourceTree = "<group>"; };
-		5F0D3E5425D597EC0060E84C /* Poster_06.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Poster_06.jpg; sourceTree = "<group>"; };
-		5F0D3E5525D597EC0060E84C /* Poster_08.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Poster_08.jpg; sourceTree = "<group>"; };
-		5F0D3E5625D597EC0060E84C /* Poster_10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Poster_10.jpg; sourceTree = "<group>"; };
-		5F0D3E5725D597EC0060E84C /* Poster_01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Poster_01.jpg; sourceTree = "<group>"; };
-		5F0D3E5825D597EE0060E84C /* Poster_05.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Poster_05.jpg; sourceTree = "<group>"; };
-		5F0D3E5925D597EE0060E84C /* Poster_07.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Poster_07.jpg; sourceTree = "<group>"; };
-		5F0D3E5A25D597EE0060E84C /* Poster_02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Poster_02.jpg; sourceTree = "<group>"; };
-		5F0D3E5B25D597EE0060E84C /* Poster_03.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Poster_03.jpg; sourceTree = "<group>"; };
 		5F4C1B5F25D32677006A84F9 /* MobileDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F4C1B6225D32677006A84F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F4C1B6625D32677006A84F9 /* Tab1RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab1RootViewController.swift; sourceTree = "<group>"; };
@@ -83,21 +67,6 @@
 				5F0D3E4E25D5919A0060E84C /* MoviesManager.swift */,
 			);
 			path = Managers;
-			sourceTree = "<group>";
-		};
-		5F0D3E5325D597C30060E84C /* Postrers */ = {
-			isa = PBXGroup;
-			children = (
-				5F0D3E5725D597EC0060E84C /* Poster_01.jpg */,
-				5F0D3E5A25D597EE0060E84C /* Poster_02.jpg */,
-				5F0D3E5B25D597EE0060E84C /* Poster_03.jpg */,
-				5F0D3E5825D597EE0060E84C /* Poster_05.jpg */,
-				5F0D3E5425D597EC0060E84C /* Poster_06.jpg */,
-				5F0D3E5925D597EE0060E84C /* Poster_07.jpg */,
-				5F0D3E5525D597EC0060E84C /* Poster_08.jpg */,
-				5F0D3E5625D597EC0060E84C /* Poster_10.jpg */,
-			);
-			path = Postrers;
 			sourceTree = "<group>";
 		};
 		5F4C1B5625D32677006A84F9 = {
@@ -149,7 +118,7 @@
 		5F4C1B7B25D326D1006A84F9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				5FA4C89225D572510055E4E3 /* MovieData */,
+				5FA4C89425D576A20055E4E3 /* MoviesList.txt */,
 				5F4C1B6B25D32679006A84F9 /* Assets.xcassets */,
 				5F4C1B7025D32679006A84F9 /* Info.plist */,
 			);
@@ -260,15 +229,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		5FA4C89225D572510055E4E3 /* MovieData */ = {
-			isa = PBXGroup;
-			children = (
-				5F0D3E5325D597C30060E84C /* Postrers */,
-				5FA4C89425D576A20055E4E3 /* MoviesList.txt */,
-			);
-			path = MovieData;
-			sourceTree = "<group>";
-		};
 		5FAE16EF25D3FCBA0058A105 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -342,17 +302,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FA4C89525D576A20055E4E3 /* MoviesList.txt in Resources */,
-				5F0D3E5E25D597EE0060E84C /* Poster_10.jpg in Resources */,
 				5F4C1B6F25D32679006A84F9 /* LaunchScreen.storyboard in Resources */,
 				5FA4C88B25D5714D0055E4E3 /* FilmTableViewCell.xib in Resources */,
-				5F0D3E6125D597EE0060E84C /* Poster_07.jpg in Resources */,
-				5F0D3E5F25D597EE0060E84C /* Poster_01.jpg in Resources */,
-				5F0D3E6025D597EE0060E84C /* Poster_05.jpg in Resources */,
 				5F4C1B6C25D32679006A84F9 /* Assets.xcassets in Resources */,
-				5F0D3E5D25D597EE0060E84C /* Poster_08.jpg in Resources */,
-				5F0D3E5C25D597EE0060E84C /* Poster_06.jpg in Resources */,
-				5F0D3E6325D597EE0060E84C /* Poster_03.jpg in Resources */,
-				5F0D3E6225D597EE0060E84C /* Poster_02.jpg in Resources */,
 				5F4C1B6A25D32677006A84F9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
