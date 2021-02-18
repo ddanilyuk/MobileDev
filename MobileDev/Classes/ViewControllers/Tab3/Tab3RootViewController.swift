@@ -46,7 +46,13 @@ final class Tab3RootViewController: UIViewController {
         movies.forEach { movie in
             
             let section = TableSection(headerView: nil, footerView: nil)
-            section += TableRow<FilmTableViewCell>(item: movie)
+            let row = TableRow<FilmTableViewCell>(item: movie)
+                .on(.click) { [weak self] row in
+                    let controller = MovieDetailViewController.create(with: row.item)
+                    self?.navigationController?.pushViewController(controller, animated: true)
+                }
+            
+            section += row
             tableDirector += section
         }
         
