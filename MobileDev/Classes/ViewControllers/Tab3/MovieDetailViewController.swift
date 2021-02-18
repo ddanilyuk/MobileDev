@@ -34,11 +34,7 @@ final class MovieDetailViewController: UIViewController {
     @IBOutlet weak var labelBottom: NSLayoutConstraint!
     
     @IBOutlet weak var headerView: UIView!
-    @IBOutlet weak var viewHeight: NSLayoutConstraint! {
-        didSet {
-            print(viewHeight.constant)
-        }
-    }
+    @IBOutlet weak var viewHeight: NSLayoutConstraint!
     
     //    @IBOutlet weak var visualEffectText: UIVisualEffectView!
     private var tableDirector: TableDirector!
@@ -58,13 +54,29 @@ final class MovieDetailViewController: UIViewController {
         
         viewHeight.constant = 550
         headerView.layoutIfNeeded()
+        
+        let upSwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(didPan(_:)))
+        upSwipeGestureRecognizer.direction = .up
+        
+        let downSwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(didPan(_:)))
+        downSwipeGestureRecognizer.direction = .down
+        
+        headerView.addGestureRecognizer(upSwipeGestureRecognizer)
+        headerView.addGestureRecognizer(downSwipeGestureRecognizer)
+        
         setupTableView()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    @objc private func didPan(_ sender: UISwipeGestureRecognizer) {
         
-        
+        switch sender.direction {
+        case .down:
+            tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+        case .up:
+            tableView.scrollRectToVisible(CGRect(x: 0, y: tableView.frame.height - 276, width: 1, height: 1), animated: true)
+        default:
+            break
+        }
     }
     
     private func setupTableView() {
@@ -89,6 +101,30 @@ final class MovieDetailViewController: UIViewController {
 
 extension MovieDetailViewController: UIScrollViewDelegate {
     
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
+        let yOffset = -scrollView.contentOffset.y
+        
+        guard yOffset > 275 else {
+            return
+        }
+        
+        let newOffser = yOffset < 550 - (275 / 2) ? tableView.frame.height - 276 : 0
+        tableView.scrollRectToVisible(CGRect(x: 0, y: newOffser, width: 1, height: 1), animated: true)
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        
+        let yOffset = -scrollView.contentOffset.y
+        
+        guard yOffset > 275 else {
+            return
+        }
+        
+        let newOffser = yOffset < 550 - (275 / 2) ? tableView.frame.height - 276 : 0
+        tableView.scrollRectToVisible(CGRect(x: 0, y: newOffser, width: 1, height: 1), animated: true)
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         var yOffset = -scrollView.contentOffset.y
@@ -109,7 +145,6 @@ extension MovieDetailViewController: UIScrollViewDelegate {
         labelLeading.constant = max(150 * persent, 0)
         labelTrailing.constant = 8 * persent
         labelBottom.constant = ((275 - topPadding - 100 - 8) / 2) * persent
-        print("labelLeading.constant", labelLeading.constant)
         
         let screenWidth = UIScreen.main.bounds.width
         
@@ -122,8 +157,6 @@ extension MovieDetailViewController: UIScrollViewDelegate {
         
         posterImageView.layer.cornerRadius = 10 * persent
         movieTitleLabel.layer.cornerRadius = 10 * persent
-        //        visualEffectText.layer.cornerRadius = 10 * persent
-        
         
         viewHeight.constant = yOffset
         headerView.layoutIfNeeded()
