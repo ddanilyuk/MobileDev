@@ -29,7 +29,7 @@ final class Tab3RootViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        movies = movieManager.fetchMovies(from: "MoviesList")
+        movies = movieManager.fetchMovies(from: MoviesManager.moviesListName)
         setupTableView()
     }
     
@@ -48,7 +48,10 @@ final class Tab3RootViewController: UIViewController {
             let section = TableSection(headerView: nil, footerView: nil)
             let row = TableRow<FilmTableViewCell>(item: movie)
                 .on(.click) { [weak self] row in
-                    let controller = MovieDetailViewController.create(with: row.item)
+                    guard let movie = self?.movieManager.getMovie(with: row.item.imdbID) else {
+                        return
+                    }
+                    let controller = MovieDetailViewController.create(with: movie)
                     self?.navigationController?.pushViewController(controller, animated: true)
                 }
             

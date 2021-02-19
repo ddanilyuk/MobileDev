@@ -30,6 +30,9 @@
 		5F4C1B8925D327F1006A84F9 /* UIStoryboard+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4C1B8825D327F1006A84F9 /* UIStoryboard+Ext.swift */; };
 		5F4C1B8D25D32874006A84F9 /* UIApplication+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4C1B8C25D32874006A84F9 /* UIApplication+Keyboard.swift */; };
 		5F4C1B9125D328DF006A84F9 /* Tab2RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4C1B9025D328DF006A84F9 /* Tab2RootViewController.swift */; };
+		5F6314B125DFB5C50040C157 /* FieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6314AF25DFB5C50040C157 /* FieldTableViewCell.swift */; };
+		5F6314B225DFB5C50040C157 /* FieldTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F6314B025DFB5C50040C157 /* FieldTableViewCell.xib */; };
+		5F6314B825DFBBE40040C157 /* String+Capitalized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6314B725DFBBE40040C157 /* String+Capitalized.swift */; };
 		5F9A1BC125DED83100BE0B84 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9A1BC025DED83000BE0B84 /* UIColor+Ext.swift */; };
 		5FA4C87E25D570A70055E4E3 /* TableKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5FA4C87D25D570A70055E4E3 /* TableKit */; };
 		5FA4C88325D570F00055E4E3 /* Tab3RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA4C88225D570F00055E4E3 /* Tab3RootViewController.swift */; };
@@ -68,6 +71,9 @@
 		5F4C1B8825D327F1006A84F9 /* UIStoryboard+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Ext.swift"; sourceTree = "<group>"; };
 		5F4C1B8C25D32874006A84F9 /* UIApplication+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Keyboard.swift"; sourceTree = "<group>"; };
 		5F4C1B9025D328DF006A84F9 /* Tab2RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab2RootViewController.swift; sourceTree = "<group>"; };
+		5F6314AF25DFB5C50040C157 /* FieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldTableViewCell.swift; sourceTree = "<group>"; };
+		5F6314B025DFB5C50040C157 /* FieldTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FieldTableViewCell.xib; sourceTree = "<group>"; };
+		5F6314B725DFBBE40040C157 /* String+Capitalized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Capitalized.swift"; sourceTree = "<group>"; };
 		5F9A1BC025DED83000BE0B84 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		5FA4C88225D570F00055E4E3 /* Tab3RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab3RootViewController.swift; sourceTree = "<group>"; };
 		5FA4C88825D5714D0055E4E3 /* FilmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmTableViewCell.swift; sourceTree = "<group>"; };
@@ -218,6 +224,7 @@
 		5F4C1B8425D327B5006A84F9 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				5F6314B525DFBBC20040C157 /* Foundation */,
 				5F4C1B8625D327C2006A84F9 /* UIApplication */,
 				5F4C1B8525D327BC006A84F9 /* UIKit */,
 			);
@@ -269,6 +276,31 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
+		5F6314AE25DFB5960040C157 /* FieldTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5F6314AF25DFB5C50040C157 /* FieldTableViewCell.swift */,
+				5F6314B025DFB5C50040C157 /* FieldTableViewCell.xib */,
+			);
+			path = FieldTableViewCell;
+			sourceTree = "<group>";
+		};
+		5F6314B525DFBBC20040C157 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				5F6314B625DFBBC80040C157 /* String */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		5F6314B625DFBBC80040C157 /* String */ = {
+			isa = PBXGroup;
+			children = (
+				5F6314B725DFBBE40040C157 /* String+Capitalized.swift */,
+			);
+			path = String;
+			sourceTree = "<group>";
+		};
 		5F9A1BBF25DED82400BE0B84 /* UIColor */ = {
 			isa = PBXGroup;
 			children = (
@@ -283,6 +315,7 @@
 				5FA4C88225D570F00055E4E3 /* Tab3RootViewController.swift */,
 				5F0D3E7E25D5DFB60060E84C /* MovieDetailViewController.swift */,
 				5F0D3E9225D5F9F40060E84C /* CustomNavigationViewController.swift */,
+				5F6314AE25DFB5960040C157 /* FieldTableViewCell */,
 				5FA4C88625D571010055E4E3 /* FilmTableViewCell */,
 			);
 			path = Tab3;
@@ -392,6 +425,7 @@
 				5F0D3E7425D5DF980060E84C /* tt0796366.txt in Resources */,
 				5F0D3E7325D5DF980060E84C /* tt0080684.txt in Resources */,
 				5F0D3E7525D5DF980060E84C /* tt2527336.txt in Resources */,
+				5F6314B225DFB5C50040C157 /* FieldTableViewCell.xib in Resources */,
 				5F0D3E7925D5DF980060E84C /* tt0086190.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -411,6 +445,8 @@
 				5F0D3E8E25D5E6820060E84C /* UIView+FromNib.swift in Sources */,
 				5F9A1BC125DED83100BE0B84 /* UIColor+Ext.swift in Sources */,
 				5F0D3E4F25D5919A0060E84C /* MoviesManager.swift in Sources */,
+				5F6314B825DFBBE40040C157 /* String+Capitalized.swift in Sources */,
+				5F6314B125DFB5C50040C157 /* FieldTableViewCell.swift in Sources */,
 				5FA4C88325D570F00055E4E3 /* Tab3RootViewController.swift in Sources */,
 				5FA4C89025D571860055E4E3 /* Movie.swift in Sources */,
 				5F0D3E9325D5F9F40060E84C /* CustomNavigationViewController.swift in Sources */,

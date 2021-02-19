@@ -11,6 +11,8 @@ final class MoviesManager {
     
     static var shared = MoviesManager()
     
+    static let moviesListName = "MoviesList"
+    
     private init () { }
     
     func fetchMovies(from file: String) -> [Movie] {
@@ -27,5 +29,20 @@ final class MoviesManager {
         }
         
         return []
+    }
+    
+    func getMovie(with id: String) -> Movie? {
+        
+        do {
+            if let path = Bundle.main.path(forResource: id, ofType: "txt"),
+               let jsonData = try String(contentsOfFile: path, encoding: String.Encoding.utf8).data(using: .utf8) {
+                
+                let decodedData = try JSONDecoder().decode(Movie.self, from: jsonData)
+                return decodedData
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        return nil
     }
 }

@@ -13,8 +13,12 @@ final class MovieDetailViewController: UIViewController {
     static func create(with movie: Movie) -> MovieDetailViewController {
         
         let controller = UIStoryboard.main.instantiateViewController(withIdentifier: MovieDetailViewController.identifier) as! MovieDetailViewController
+        controller.movie = movie
+        
         return controller
     }
+    
+    // MARK: - IBOutlets
     
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var movieTitleLabel: UILabel!
@@ -39,6 +43,7 @@ final class MovieDetailViewController: UIViewController {
     // MARK: - Private properties
     
     private var tableDirector: TableDirector!
+    private var movie: Movie!
     
     // MARK: - Lifecycle
     
@@ -54,9 +59,12 @@ final class MovieDetailViewController: UIViewController {
     
     private func setupView() {
         
+        movieTitleLabel.text = movie.title
+        posterImageView.image = movie.posterImage
+        
         movieTitleLabel.clipsToBounds = true
         
-        tableView.contentInset = UIEdgeInsets(top: 550, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 554, left: 0, bottom: 4, right: 0)
         tableView.scrollIndicatorInsets = tableView.contentInset
         
         headerViewHeight.constant = 550
@@ -64,6 +72,7 @@ final class MovieDetailViewController: UIViewController {
     }
     
     private func setupGestures() {
+        
         let upSwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(didPan(_:)))
         upSwipeGestureRecognizer.direction = .up
         
@@ -77,15 +86,12 @@ final class MovieDetailViewController: UIViewController {
     private func setupTableView() {
         
         tableDirector.clear()
+        tableView.separatorStyle = .none
         
-        MoviesManager.shared.fetchMovies(from: "MoviesList").forEach { movie in
+        movie.reflex().forEach { fieldRepresentable in
             
             let section = TableSection(headerView: nil, footerView: nil)
-            let row = TableRow<FilmTableViewCell>(item: movie)
-                .on(.click) { [weak self] row in
-                    let controller = MovieDetailViewController.create(with: row.item)
-                    self?.navigationController?.pushViewController(controller, animated: true)
-                }
+            let row = TableRow<FieldTableViewCell>(item: fieldRepresentable)
             
             section += row
             tableDirector += section
@@ -153,7 +159,7 @@ extension MovieDetailViewController: UIScrollViewDelegate {
         imageViewTop.constant = statusBarHeight * persent + 8 * persent
         posterImageView.layer.cornerRadius = 10 * persent
         
-        headerViewHeight.constant = yOffset
+        headerViewHeight.constant = yOffset + 4
         headerView.layoutIfNeeded()
     }
 }
