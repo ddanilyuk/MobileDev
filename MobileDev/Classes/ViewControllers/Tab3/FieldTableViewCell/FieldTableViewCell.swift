@@ -17,6 +17,7 @@ final class FieldTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        selectionStyle = .none
         roundedView.layer.cornerRadius = 4
     }
 }

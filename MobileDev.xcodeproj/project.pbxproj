@@ -209,6 +209,7 @@
 				5F4C1B8225D32750006A84F9 /* Tab1 */,
 				5F4C1B8F25D328CF006A84F9 /* Tab2 */,
 				5FA4C88025D570B10055E4E3 /* Tab3 */,
+				5FB4685125E04D9C00E7E1C3 /* Common */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -314,7 +315,6 @@
 			children = (
 				5FA4C88225D570F00055E4E3 /* Tab3RootViewController.swift */,
 				5F0D3E7E25D5DFB60060E84C /* MovieDetailViewController.swift */,
-				5F0D3E9225D5F9F40060E84C /* CustomNavigationViewController.swift */,
 				5F6314AE25DFB5960040C157 /* FieldTableViewCell */,
 				5FA4C88625D571010055E4E3 /* FilmTableViewCell */,
 			);
@@ -346,6 +346,14 @@
 				5FAE16F025D3FCE90058A105 /* GraphView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		5FB4685125E04D9C00E7E1C3 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				5F0D3E9225D5F9F40060E84C /* CustomNavigationViewController.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
