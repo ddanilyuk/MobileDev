@@ -12,13 +12,11 @@ final class FieldTableViewCell: UITableViewCell {
     
     @IBOutlet weak var fieldLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
-    @IBOutlet weak var roundedView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         selectionStyle = .none
-        roundedView.layer.cornerRadius = 4
     }
 }
 

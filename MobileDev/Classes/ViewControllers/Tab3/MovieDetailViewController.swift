@@ -20,6 +20,8 @@ final class MovieDetailViewController: UIViewController {
     
     // MARK: - IBOutlets
     
+    @IBOutlet weak var backButtonView: UIVisualEffectView!
+    
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var movieTitleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView! {
@@ -28,6 +30,7 @@ final class MovieDetailViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var backButtonTop: NSLayoutConstraint!
     @IBOutlet weak var imageViewTrailing: NSLayoutConstraint!
     @IBOutlet weak var imageViewLeading: NSLayoutConstraint!
     @IBOutlet weak var imageViewTop: NSLayoutConstraint!
@@ -50,9 +53,19 @@ final class MovieDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.hidesBackButton = true
         setupView()
         setupGestures()
         setupTableView()
+        backButtonView.layer.masksToBounds = true
+        
+        backButtonTop.constant = UIApplication.shared.windows[0].safeAreaInsets.top
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        
     }
     
     // MARK: - Setup methods
@@ -87,15 +100,26 @@ final class MovieDetailViewController: UIViewController {
         
         tableDirector.clear()
         tableView.separatorStyle = .none
+        tableView.sectionHeaderHeight = 60
+        tableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
         
-        movie.reflex().forEach { fieldRepresentable in
+        print(movie.reflex3())
+        movie.reflex3().forEach { item in
             
-            let section = TableSection(headerView: nil, footerView: nil)
-            let row = TableRow<FieldTableViewCell>(item: fieldRepresentable)
+            let header = MovieDetailSectionView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 60))
+            header.configure(with: item.section.rawValue)
             
-            section += row
+            let section = TableSection(headerView: header, footerView: nil)
+            
+            item.values.sorted(by: { $0.field < $1.field }) .forEach { field in
+                let row = TableRow<FieldTableViewCell>(item: field)
+                section += row
+            }
+            
             tableDirector += section
         }
+//        tableDirector.he
+        
         tableDirector.reload()
     }
     
@@ -145,18 +169,31 @@ extension MovieDetailViewController: UIScrollViewDelegate {
         debugPrint("yOffset: ", yOffset)
         
         let statusBarHeight = UIApplication.shared.windows[0].safeAreaInsets.top
-        let screenWidth = UIScreen.main.bounds.width
+        
+        var screenWidth: CGFloat = 0
+        
+//        print(UIDevice.current.orientation)
+        switch UIDevice.current.orientation {
+        case .portrait, .portraitUpsideDown:
+            screenWidth = UIScreen.main.bounds.width
+        case .landscapeLeft, .landscapeRight:
+            screenWidth = UIScreen.main.bounds.height
+        default:
+            break
+        }
+        
         let persent = abs(min(((yOffset - 275) / 275), 1) - 1)
+        let padding = 8 * persent
         
         labelLeading.constant = max(150 * persent, 0)
-        labelTrailing.constant = 8 * persent
+        labelTrailing.constant = padding
         labelBottom.constant = ((275 - statusBarHeight - 100 - 8) / 2) * persent
         movieTitleLabel.layer.cornerRadius = 10 * persent
         
-        imageViewBottom.constant = (100 - (persent * 100)) + (8 * persent)
+        imageViewBottom.constant = (100 - (persent * 100)) + padding
         imageViewTrailing.constant = (screenWidth - 142.0) * persent
-        imageViewLeading.constant = 8 * persent
-        imageViewTop.constant = statusBarHeight * persent + 8 * persent
+        imageViewLeading.constant = padding * 2
+        imageViewTop.constant = (statusBarHeight + 52) * persent
         posterImageView.layer.cornerRadius = 10 * persent
         
         headerViewHeight.constant = yOffset + 4

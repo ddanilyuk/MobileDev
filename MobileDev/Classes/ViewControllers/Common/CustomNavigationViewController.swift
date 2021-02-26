@@ -7,12 +7,20 @@
 
 import UIKit
 
-final class CustomNavigationViewController: UINavigationController {
+final class CustomNavigationViewController: UINavigationController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        interactivePopGestureRecognizer?.delegate = self
         navigationBar.isTranslucent = true
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        viewControllers = []
     }
     
     override func popViewController(animated: Bool) -> UIViewController? {
@@ -49,13 +57,29 @@ final class CustomNavigationViewController: UINavigationController {
         
         if viewController is MovieDetailViewController {
             
-            let backButton = UIBarButtonItem()
-            backButton.title = ""
+//            let backButton = UIBarButtonItem()
+//
+////            backButton.setBackButtonBackgroundImage(UIImage(named: "backButtonBackground2"), for: .normal, barMetrics: .default)
+////            backButton.setIm
+//            backButton.title = ""
+//
+//            backButton.image = nil
+//            navigationBar.topItem?.setHidesBackButton(true, animated: false)
             
-            navigationBar.topItem?.backBarButtonItem = backButton
+//            navigationBar.topItem?.hidesBackButton = true
+//            self.tabBarController?.navigationItem.hidesBackButton = true
+//
+//            navigationBar.topItem?.backBarButtonItem = backButton
+//            navigationBar.topItem?.leftBarButtonItem = nil
+            
             navigationBar.tintColor = .white
             navigationBar.setBackgroundImage(UIImage(), for: .default)
             navigationBar.shadowImage = UIImage()
         }
+    }
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        return viewControllers.count > 1
     }
 }
