@@ -12,15 +12,8 @@ final class CustomNavigationViewController: UINavigationController, UIGestureRec
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         interactivePopGestureRecognizer?.delegate = self
         navigationBar.isTranslucent = true
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        viewControllers = []
     }
     
     override func popViewController(animated: Bool) -> UIViewController? {
@@ -28,7 +21,7 @@ final class CustomNavigationViewController: UINavigationController, UIGestureRec
         let viewController = super.popViewController(animated: animated)
         
         if let coordinator = transitionCoordinator, animated {
-                        
+            
             navigationBar.setBackgroundImage(nil, for: .default)
             navigationBar.shadowImage = nil
             navigationBar.tintColor = .accent
@@ -56,21 +49,6 @@ final class CustomNavigationViewController: UINavigationController, UIGestureRec
         super.pushViewController(viewController, animated: animated)
         
         if viewController is MovieDetailViewController {
-            
-//            let backButton = UIBarButtonItem()
-//
-////            backButton.setBackButtonBackgroundImage(UIImage(named: "backButtonBackground2"), for: .normal, barMetrics: .default)
-////            backButton.setIm
-//            backButton.title = ""
-//
-//            backButton.image = nil
-//            navigationBar.topItem?.setHidesBackButton(true, animated: false)
-            
-//            navigationBar.topItem?.hidesBackButton = true
-//            self.tabBarController?.navigationItem.hidesBackButton = true
-//
-//            navigationBar.topItem?.backBarButtonItem = backButton
-//            navigationBar.topItem?.leftBarButtonItem = nil
             
             navigationBar.tintColor = .white
             navigationBar.setBackgroundImage(UIImage(), for: .default)

@@ -10,6 +10,58 @@ import TableKit
 
 final class MovieDetailViewController: UIViewController {
     
+    enum State {
+        case compact
+        case exapnded
+        case landscape
+        
+        var imageTop: CGFloat {
+            switch self {
+            case .compact:
+                return UIApplication.shared.windows[0].safeAreaInsets.top + 52
+            case .exapnded:
+                return 0
+            case .landscape:
+                return 0
+            }
+        }
+        
+        var imageLeading: CGFloat {
+            switch self {
+            case .compact:
+                return 16
+            case .exapnded:
+                return 0
+            case .landscape:
+                return 0
+            }
+        }
+        
+        var imageTrailing: CGFloat {
+            switch self {
+            case .compact:
+                return 16
+            case .exapnded:
+                return 0
+            case .landscape:
+                return 0
+            }
+        }
+
+
+        
+        var contentInset: UIEdgeInsets {
+            switch self {
+            case .compact, .exapnded:
+                return UIEdgeInsets(top: 554, left: 0, bottom: 0, right: 0)
+            case .landscape:
+                return UIEdgeInsets(top: -40, left: 0, bottom: 0, right: 0)
+            }
+        }
+        
+        
+    }
+    
     static func create(with movie: Movie) -> MovieDetailViewController {
         
         let controller = UIStoryboard.main.instantiateViewController(withIdentifier: MovieDetailViewController.identifier) as! MovieDetailViewController
@@ -20,22 +72,23 @@ final class MovieDetailViewController: UIViewController {
     
     // MARK: - IBOutlets
     
-    @IBOutlet weak var backButtonView: UIVisualEffectView!
     
-    @IBOutlet weak var posterImageView: UIImageView!
-    @IBOutlet weak var movieTitleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             tableDirector = TableDirector(tableView: tableView, scrollDelegate: self)
         }
     }
     
+    @IBOutlet weak var backButtonView: UIVisualEffectView!
     @IBOutlet weak var backButtonTop: NSLayoutConstraint!
+    
+    @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var imageViewTrailing: NSLayoutConstraint!
     @IBOutlet weak var imageViewLeading: NSLayoutConstraint!
     @IBOutlet weak var imageViewTop: NSLayoutConstraint!
     @IBOutlet weak var imageViewBottom: NSLayoutConstraint!
     
+    @IBOutlet weak var movieTitleLabel: UILabel!
     @IBOutlet weak var labelTrailing: NSLayoutConstraint!
     @IBOutlet weak var labelLeading: NSLayoutConstraint!
     @IBOutlet weak var labelBottom: NSLayoutConstraint!
@@ -48,29 +101,52 @@ final class MovieDetailViewController: UIViewController {
     private var tableDirector: TableDirector!
     private var movie: Movie!
     
+    private var state: State = .compact
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.hidesBackButton = true
         setupView()
         setupGestures()
         setupTableView()
-        backButtonView.layer.masksToBounds = true
         
-        backButtonTop.constant = UIApplication.shared.windows[0].safeAreaInsets.top
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        
+        switch UIDevice.current.orientation {
+        case .landscapeLeft, .landscapeRight:
+            backButtonTop.constant = 8
+            imageViewTop.constant = 8
+            tableView.contentInset = UIEdgeInsets(top: -40, left: 0, bottom: 0, right: 0)
+            
+            posterImageView.layer.cornerRadius = 8
+            movieTitleLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+//            imageViewBottom.constant = 50
+//            headerViewHeight.isActive = false
+        default:
+            backButtonTop.constant = UIApplication.shared.windows[0].safeAreaInsets.top
+            tableView.contentInset = UIEdgeInsets(top: 554, left: 0, bottom: 0, right: 0)
+            posterImageView.layer.cornerRadius = 0
+            movieTitleLabel.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
+
+
+//            headerViewHeight.isActive = true
+
+        }
     }
     
     // MARK: - Setup methods
     
     private func setupView() {
+        
+        navigationItem.hidesBackButton = true
+        backButtonView.layer.masksToBounds = true
+        backButtonTop.constant = UIApplication.shared.windows[0].safeAreaInsets.top
+        
         
         movieTitleLabel.text = movie.title
         posterImageView.image = movie.posterImage
@@ -103,8 +179,8 @@ final class MovieDetailViewController: UIViewController {
         tableView.sectionHeaderHeight = 60
         tableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
         
-        print(movie.reflex3())
-        movie.reflex3().forEach { item in
+        print(movie.getSections())
+        movie.getSections().forEach { item in
             
             let header = MovieDetailSectionView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 60))
             header.configure(with: item.section.rawValue)
@@ -174,12 +250,11 @@ extension MovieDetailViewController: UIScrollViewDelegate {
         
 //        print(UIDevice.current.orientation)
         switch UIDevice.current.orientation {
-        case .portrait, .portraitUpsideDown:
-            screenWidth = UIScreen.main.bounds.width
         case .landscapeLeft, .landscapeRight:
-            screenWidth = UIScreen.main.bounds.height
+            return
         default:
-            break
+            screenWidth = UIScreen.main.bounds.width
+
         }
         
         let persent = abs(min(((yOffset - 275) / 275), 1) - 1)

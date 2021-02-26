@@ -47,6 +47,7 @@ final class Tab3RootViewController: UIViewController {
         movies.forEach { movie in
             
             let section = TableSection(headerView: nil, footerView: nil)
+            
             let row = TableRow<MovieTableViewCell>(item: movie)
                 .on(.click) { [weak self] row in
                     guard let movie = self?.movieManager.getMovie(with: row.item.imdbID) else {

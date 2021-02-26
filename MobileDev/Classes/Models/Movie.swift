@@ -16,10 +16,6 @@ struct Movie {
     
     enum Section: String, Comparable, CaseIterable {
         
-        static func < (lhs: Movie.Section, rhs: Movie.Section) -> Bool {
-            return lhs.order < rhs.order
-        }
-        
         case information = "Information"
         case peoples = "Peoples"
         case ratings = "Ratings"
@@ -27,6 +23,10 @@ struct Movie {
         
         var order: Int {
             return Section.allCases.firstIndex(of: self) ?? 0
+        }
+        
+        static func < (lhs: Movie.Section, rhs: Movie.Section) -> Bool {
+            return lhs.order < rhs.order
         }
     }
     
@@ -45,75 +45,17 @@ struct Movie {
         return poster.isEmpty ? UIImage(systemName: "film") : UIImage(named: poster)
     }
     
-    func reflex() -> [FieldRepresenting] {
+    func getSections() -> [(section: Section, values: [FieldRepresenting])] {
         
-        return Mirror(reflecting: self).children.enumerated().reduce(into: [FieldRepresenting]()) {
+        let dict = Mirror(reflecting: self).children.enumerated().reduce(into: [Section: [FieldRepresenting]]()) { result, sequence in
             
-            guard $1.element.label != "title" else  {
-                return
-            }
-            
-            $0.append(FieldRepresenting(field: "\($1.element.label?.capitalizingFirstLetter() ?? "")",
-                                        value: "\($1.element.value as? String ?? "")"))
-        }
-    }
-    
-    func reflex2() -> [(section: Section, values: FieldRepresenting)] {
-        
-        let array = Mirror(reflecting: self).children.enumerated().reduce(into: [(section: Section, values: FieldRepresenting)]()) { res, seq in
-            
-            guard seq.element.label != CodingKeys.title.string else {
-                return
-            }
-            
-            switch seq.element.label {
-            
-            case CodingKeys.year.string,
-                 CodingKeys.type.string,
-                 CodingKeys.released.string,
-                 CodingKeys.production.string:
-                
-                res.append((section: .information, values: FieldRepresenting(field: "\(seq.element.label?.capitalizingFirstLetter() ?? "")",
-                                                                             value: "\(seq.element.value as? String ?? "")")))
-            case CodingKeys.director.string,
-                 CodingKeys.writer.string,
-                 CodingKeys.actors.string:
-                
-                res.append((section: .peoples, values: FieldRepresenting(field: "\(seq.element.label?.capitalizingFirstLetter() ?? "")",
-                                                                         value: "\(seq.element.value as? String ?? "")")))
-                
-            case CodingKeys.rated.string,
-                 CodingKeys.imdbRating.string,
-                 CodingKeys.imdbVotes.string,
-                 CodingKeys.awards.string:
-                
-                res.append((section: .ratings, values: FieldRepresenting(field: "\(seq.element.label?.capitalizingFirstLetter() ?? "")",
-                                                                         value: "\(seq.element.value as? String ?? "")")))
-                
-            default:
-                
-                res.append((section: .other, values: FieldRepresenting(field: "\(seq.element.label?.capitalizingFirstLetter() ?? "")",
-                                                                       value: "\(seq.element.value as? String ?? "")")))
-            }
-            
-        }
-        
-        return []
-    }
-    
-    func reflex3() -> [(section: Section, values: [FieldRepresenting])] {
-        
-        //        var array2: [Section: [FieldRepresenting]] = [(section: .information, values: [])]
-        
-        let dict = Mirror(reflecting: self).children.enumerated().reduce(into: [Section: [FieldRepresenting]]()) { res, seq in
-            
-            guard (seq.element.label?.capitalizingFirstLetter() ?? "") != CodingKeys.title.stringValue.capitalizingFirstLetter() else {
+            guard (sequence.element.label?.capitalizingFirstLetter() ?? "") != CodingKeys.title.stringValue.capitalizingFirstLetter() else {
                 return
             }
             
             var section: Section = .other
             
-            switch seq.element.label?.capitalizingFirstLetter() {
+            switch sequence.element.label?.capitalizingFirstLetter() {
             
             case CodingKeys.year.string,
                  CodingKeys.type.string,
@@ -121,31 +63,26 @@ struct Movie {
                  CodingKeys.production.string:
                 
                 section = .information
-                
             case CodingKeys.director.string,
                  CodingKeys.writer.string,
                  CodingKeys.actors.string:
                 
                 section = .peoples
-                
             case CodingKeys.rated.string,
                  CodingKeys.imdbRating.string,
                  CodingKeys.imdbVotes.string,
                  CodingKeys.awards.string:
                 
                 section = .ratings
-                
             default:
                 section = .other
             }
             
-            var prevArray = res[section] ?? []
-            
-            let newElement = FieldRepresenting(field: "\(seq.element.label?.capitalizingFirstLetter() ?? "")",
-                                               value: "\(seq.element.value as? String ?? "")")
-            
-            prevArray.append(newElement)
-            res[section] = prevArray
+            var array = result[section] ?? []
+            let newElement = FieldRepresenting(field: "\(sequence.element.label?.capitalizingFirstLetter() ?? "")",
+                                               value: "\(sequence.element.value as? String ?? "")")
+            array.append(newElement)
+            result[section] = array
         }
         
         return dict.map { (section: $0, values: $1) }.sorted { $0.section < $1.section }
@@ -182,5 +119,4 @@ extension Movie: Codable {
             return "\(self.stringValue.capitalizingFirstLetter())"
         }
     }
-    
 }
