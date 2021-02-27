@@ -32,6 +32,7 @@
 		5F4C1B9025D328DF006A84F9 /* Tab2RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab2RootViewController.swift; sourceTree = "<group>"; };
 		5FAE16F025D3FCE90058A105 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		5FAE16F525D3FD000058A105 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		5F4C1B9925D33362006A84F9 /* ProgrammingAssignment1_2.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ProgrammingAssignment1_2.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +49,7 @@
 		5F4C1B5625D32677006A84F9 = {
 			isa = PBXGroup;
 			children = (
+				5F4C1B9925D33362006A84F9 /* ProgrammingAssignment1_2.playground */,
 				5F4C1B6125D32677006A84F9 /* MobileDev */,
 				5F4C1B6025D32677006A84F9 /* Products */,
 			);
