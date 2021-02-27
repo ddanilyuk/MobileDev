@@ -49,7 +49,7 @@
 
 ## Скріншоти роботи додатка
 
-<img src="https://github.com/ddanilyuk/MobileDev/blob/lab/2/Images/lab2/1.gif" width="1000">
+<img src="https://github.com/ddanilyuk/MobileDev/blob/lab/2/Images/lab2/1.gif" width="300">
 
 ## Висновок
 
