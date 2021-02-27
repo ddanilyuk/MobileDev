@@ -42,7 +42,9 @@ struct Movie {
     let awards, imdbRating, imdbVotes: String?
     
     var posterImage: UIImage? {
-        return poster.isEmpty ? UIImage(systemName: "film") : UIImage(named: poster)
+        return poster.isEmpty
+            ? UIImage(systemName: "film")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+            : UIImage(named: poster)
     }
     
     func getSections() -> [(section: Section, values: [FieldRepresenting])] {
