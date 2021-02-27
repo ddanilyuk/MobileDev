@@ -48,7 +48,7 @@
 
 ## Скріншоти роботи додатка
 
-<img src="https://github.com/ddanilyuk/MobileDev/blob/lab/1.2/Images/lab1.2/1.PNG" width="1000">
+<img src="https://github.com/ddanilyuk/MobileDev/blob/lab/1.2/Images/lab1.2/1.png" width="1000">
 
 ## Лістинг роботи додатка
 
