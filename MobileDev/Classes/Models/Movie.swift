@@ -43,7 +43,7 @@ struct Movie {
     
     var posterImage: UIImage? {
         return poster.isEmpty
-            ? UIImage(systemName: "film")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+            ? UIImage.filmPlaceholder
             : UIImage(named: poster)
     }
     

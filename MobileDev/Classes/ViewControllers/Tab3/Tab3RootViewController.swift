@@ -29,13 +29,15 @@ final class Tab3RootViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        movies = movieManager.fetchMovies(from: MoviesManager.moviesListName)
+        movies = movieManager.fetchMovies()
         setupTableView()
     }
     
     private func setupTableView() {
         
         tableView.tableFooterView = UIView()
+        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+        tableView.separatorStyle = .none
         updateTableView()
     }
     

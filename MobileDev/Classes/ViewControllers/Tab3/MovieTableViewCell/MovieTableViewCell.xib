@@ -5,7 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,7 +13,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="320" id="KGk-i7-Jjw" customClass="MovieTableViewCell" customModule="MobileDev" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -30,7 +29,7 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
-                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Xw-S6-2lW">
+                    <view alpha="0.45000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Xw-S6-2lW">
                         <rect key="frame" x="20" y="10" width="280" height="300"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -41,7 +40,7 @@
                                 <real key="value" value="20"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                <color key="value" systemColor="labelColor"/>
+                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
                                 <integer key="value" value="10"/>
@@ -85,16 +84,16 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="021-L4-GXC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="2Kv-vi-3vn"/>
+                    <constraint firstItem="7Xw-S6-2lW" firstAttribute="leading" secondItem="021-L4-GXC" secondAttribute="leading" id="3Y3-aS-tRf"/>
                     <constraint firstItem="021-L4-GXC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="5vL-yD-AbY"/>
+                    <constraint firstItem="7Xw-S6-2lW" firstAttribute="bottom" secondItem="021-L4-GXC" secondAttribute="bottom" id="87O-38-2om"/>
                     <constraint firstItem="LM4-mE-0Ax" firstAttribute="leading" secondItem="7Xw-S6-2lW" secondAttribute="leading" constant="16" id="9nA-ah-e65"/>
-                    <constraint firstAttribute="trailing" secondItem="7Xw-S6-2lW" secondAttribute="trailing" constant="20" id="Dd6-sZ-xr4"/>
-                    <constraint firstItem="7Xw-S6-2lW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="EbN-P4-TYC"/>
+                    <constraint firstItem="7Xw-S6-2lW" firstAttribute="trailing" secondItem="021-L4-GXC" secondAttribute="trailing" id="A3c-3i-eYZ"/>
                     <constraint firstItem="LM4-mE-0Ax" firstAttribute="bottom" secondItem="7Xw-S6-2lW" secondAttribute="bottom" constant="-16" id="JoG-rL-jMS"/>
                     <constraint firstAttribute="trailing" secondItem="021-L4-GXC" secondAttribute="trailing" constant="20" id="YGM-5S-V9B"/>
                     <constraint firstItem="LM4-mE-0Ax" firstAttribute="trailing" secondItem="7Xw-S6-2lW" secondAttribute="trailing" constant="-16" id="fWz-GD-ZLQ"/>
-                    <constraint firstItem="7Xw-S6-2lW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="lPJ-dG-Xf8"/>
                     <constraint firstAttribute="bottom" secondItem="021-L4-GXC" secondAttribute="bottom" constant="10" id="maV-vY-ivW"/>
-                    <constraint firstAttribute="bottom" secondItem="7Xw-S6-2lW" secondAttribute="bottom" constant="10" id="mvk-Fh-IUU"/>
+                    <constraint firstItem="7Xw-S6-2lW" firstAttribute="top" secondItem="021-L4-GXC" secondAttribute="top" id="xXa-s7-Q5x"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -113,8 +112,5 @@
         <namedColor name="BackgroundGray">
             <color red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>
