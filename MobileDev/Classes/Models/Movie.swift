@@ -16,7 +16,10 @@ struct Movie {
     let poster: String
     
     var posterImage: UIImage? {
-        return poster.isEmpty ? UIImage(systemName: "film") : UIImage(named: poster)
+        
+        return poster.isEmpty
+            ? UIImage.filmPlaceholder
+            : UIImage(named: poster)
     }
 }
 

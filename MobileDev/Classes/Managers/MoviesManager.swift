@@ -10,10 +10,13 @@ import Foundation
 final class MoviesManager {
     
     static var shared = MoviesManager()
+    static var movieList = "MoviesList"
     
     private init () { }
     
-    func fetchMovies(from file: String) -> [Movie] {
+    // MARK: - Public methods
+    
+    func fetchMovies(from file: String = MoviesManager.movieList) -> [Movie] {
         
         do {
             if let path = Bundle.main.path(forResource: file, ofType: "txt"),
@@ -23,7 +26,7 @@ final class MoviesManager {
                 return decodedData.items
             }
         } catch {
-            print("Error:", error.localizedDescription)
+            print("Error: ", error.localizedDescription)
         }
         
         return []
