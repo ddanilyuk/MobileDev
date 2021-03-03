@@ -45,17 +45,13 @@
 </p>
 
 ## Варіант № 1
-(8208 mod 6) + 1 = 1
+(8208 mod 2) + 1 = 1
 
 ## Скріншоти роботи додатка
 
-<img src="https://github.com/ddanilyuk/MobileDev/blob/lab/2/Images/lab2/1.gif" width="300">
+<img src="https://github.com/ddanilyuk/MobileDev/blob/lab/3/Images/lab3/1.gif" width="300">
 
 ## Висновок
 
-Під час виконання лабораторної роботи було покращено навички малювання на UIView за допомогою методу draw(_:) та UIBezierPath.
-
-Були покращені навички використання UIScrollView з UIPageControl.
-
-Були покращені навички роботи з Auto Layout constraints разом з горизонтальною орієнтацією.
+Було покращено навички роботи з UIKit
 
