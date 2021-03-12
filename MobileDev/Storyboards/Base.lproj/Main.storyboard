@@ -386,7 +386,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="DD3-d4-HrL"/>
                     <connections>
-                        <outlet property="backButtonLeading" destination="dci-LQ-H9a" id="c6E-3T-cuZ"/>
+                        <outlet property="backButtonLeading" destination="vuA-g2-a4l" id="gZF-m0-rGh"/>
                         <outlet property="backButtonTop" destination="0Dp-OA-YLI" id="UIh-1f-aJZ"/>
                         <outlet property="backButtonView" destination="vt2-SK-zx4" id="gZy-7N-UB8"/>
                         <outlet property="headerView" destination="m2N-Na-A0j" id="Bhx-1s-TF9"/>

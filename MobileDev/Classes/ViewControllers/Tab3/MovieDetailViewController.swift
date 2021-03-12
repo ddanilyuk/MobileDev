@@ -48,7 +48,7 @@ final class MovieDetailViewController: UIViewController {
     
     private var tableDirector: TableDirector!
     private var movie: Movie!
-    
+    private var isRotating = false
     private var state: State = .compact
     
     // MARK: - Lifecycle
@@ -67,41 +67,31 @@ final class MovieDetailViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let isNeedToSetLandscape = UIApplication.interfaceOrientation.isLandscape && !state.isLandscape
+        let isNeedToSetPortrait = !UIApplication.interfaceOrientation.isLandscape && state.isLandscape
+        
+        if isNeedToSetLandscape || isNeedToSetPortrait {
+            state = isNeedToSetLandscape ? .landscape : .exapnded
+            setState(state)
+            let path = IndexPath(row: 0, section: 0)
+            tableView.scrollToRow(at: path, at: .top, animated: true)
+        }
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
-//        print(coordinator.)
-        print("viewWillTransition")
-        print(size)
-        print(UIApplication.shared.windows[0].safeAreaInsets)
-        // TODO: Change to ternary
+        isRotating = true
         
-        var topInset: CGFloat = 0
-        var screenWidth: CGFloat = 0
-        
-        if UIDevice.current.orientation.isLandscape {
-            state = .landscape
-            backButtonTop.constant = 8
-//            backButtonLeading.constant = 8
-            
-            topInset = UIApplication.shared.windows[0].safeAreaInsets.left
-            screenWidth = size.width
-        } else {
-            state = .exapnded
-            backButtonTop.constant = UIApplication.shared.windows[0].safeAreaInsets.left
-            
-            topInset = UIApplication.shared.windows[0].safeAreaInsets.top
-            screenWidth = size.width
+        coordinator.animate { context in
+            context.viewController(forKey: UITransitionContextViewControllerKey.from)
+        } completion: { [weak self] _ in
+            self?.isRotating = false
         }
-        setState(state, topInset:  topInset, screenWidth: screenWidth)
-        
-        let path = IndexPath(row: 0, section: 0)
-        tableView.scrollToRow(at: path, at: .top, animated: true)
-//        let newOffser = state == .exapnded ? tableView.frame.height - 276 : 0
-//        print(newOffser)
-//        tableView.scrollRectToVisible(CGRect(x: 0, y: newOffser, width: 1, height: 1), animated: true)
     }
-        
     
     // MARK: - Setup methods
     
@@ -109,24 +99,10 @@ final class MovieDetailViewController: UIViewController {
         
         navigationItem.hidesBackButton = true
         backButtonView.layer.masksToBounds = true
-        backButtonTop.constant = UIApplication.shared.windows[0].safeAreaInsets.top
-//        movieTitleLabel.clipsToBounds = true
-
         movieTitleLabel.text = movie.title
         posterImageView.image = movie.posterImage
         
-
-        
-        if UIDevice.current.orientation.isLandscape {
-            state = .landscape
-            backButtonTop.constant = 8
-            
-        } else {
-            state = .exapnded
-            backButtonTop.constant = UIApplication.shared.windows[0].safeAreaInsets.top
-        }
-        
-        
+        state = UIApplication.interfaceOrientation.isLandscape ? .landscape : .exapnded
         setState(state)
     }
     
@@ -163,8 +139,6 @@ final class MovieDetailViewController: UIViewController {
             
             tableDirector += section
         }
-//        tableDirector.he
-        
         tableDirector.reload()
     }
     
@@ -186,30 +160,27 @@ final class MovieDetailViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    private func setState(_ state: State,
-                          topInset: CGFloat = UIApplication.shared.windows[0].safeAreaInsets.top,
-                          screenWidth: CGFloat = UIScreen.main.bounds.width) {
+    private func setState(_ state: State) {
         
         labelLeading.constant = state.labelLeading
         labelTrailing.constant = state.labelTrailing
         labelBottom.constant = state.labelBottom
         
         imageViewBottom.constant = state.imageBottom
-        imageViewTrailing.constant = state.imageTrailing(screenWidth: screenWidth)
+        imageViewTrailing.constant = state.imageTrailing()
         imageViewLeading.constant = state.imageLeading
-        imageViewTop.constant = state.imageTop(topInset: topInset)
+        imageViewTop.constant = state.imageTop()
         
         posterImageView.layer.cornerRadius = state.cornerRadius
         movieTitleLabel.font = state.labelFont
         tableView.contentInset = state.contentInset
         tableView.scrollIndicatorInsets = tableView.contentInset
         
+        backButtonTop.constant = state.backButtonTop
+        backButtonLeading.constant = state.backButtonLeading
+        
         headerViewHeight.constant = state.headerHeight
         headerView.layoutIfNeeded()
-        
-//        let newOffser = state == .exapnded ? tableView.frame.height - 276 : 0
-//        print(newOffser)
-//        tableView.scrollRectToVisible(CGRect(x: 0, y: newOffser, width: 1, height: 1), animated: true)
     }
 }
 
@@ -240,14 +211,12 @@ extension MovieDetailViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        guard state != .landscape else {
+        guard state != .landscape, !isRotating else {
             return
         }
         
         let yOffset = max(-scrollView.contentOffset.y, 275)
-        
-        debugPrint("yOffset: ", yOffset)
-
+                
         let compactState: State = .compact
         let expandState: State = .exapnded
         
@@ -277,6 +246,15 @@ extension MovieDetailViewController {
         case compact
         case exapnded
         case landscape
+        
+        var isLandscape: Bool {
+            switch self {
+            case .compact, .exapnded:
+                return false
+            default:
+                return true
+            }
+        }
         
         var padding: CGFloat {
             return 8
@@ -339,7 +317,6 @@ extension MovieDetailViewController {
                 return labelHeight
             case .landscape:
                 return labelHeight
-                
             }
         }
         
@@ -388,6 +365,28 @@ extension MovieDetailViewController {
             }
         }
         
+        var backButtonTop: CGFloat {
+            switch self {
+            case .compact:
+                return UIApplication.shared.windows[0].safeAreaInsets.top
+            case .exapnded:
+                return UIApplication.shared.windows[0].safeAreaInsets.top
+            case .landscape:
+                return 8
+            }
+        }
+        
+        var backButtonLeading: CGFloat {
+            switch self {
+            case .compact:
+                return 16
+            case .exapnded:
+                return 16
+            case .landscape:
+                return 0
+            }
+        }
+        
         var cornerRadius: CGFloat {
             switch self {
             case .compact:
@@ -398,7 +397,6 @@ extension MovieDetailViewController {
                 return 10
             }
         }
-        
         
         var contentInset: UIEdgeInsets {
             switch self {
