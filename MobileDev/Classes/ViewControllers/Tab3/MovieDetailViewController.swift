@@ -10,143 +10,6 @@ import TableKit
 
 final class MovieDetailViewController: UIViewController {
     
-    enum State {
-        case compact
-        case exapnded
-        case landscape
-        
-        var padding: CGFloat {
-            return 8
-        }
-        
-        var imageWidth: CGFloat {
-            return 150
-        }
-        
-        var backButtonHeight: CGFloat {
-            return 44
-        }
-        
-        var labelHeight: CGFloat {
-            return 100
-        }
-        
-        var headerHeight: CGFloat {
-            return 550
-        }
-        
-        func imageTop(topInset: CGFloat = UIApplication.shared.windows[0].safeAreaInsets.top) -> CGFloat {
-            switch self {
-            case .compact:
-                return topInset + backButtonHeight + padding
-            case .exapnded:
-                return 0
-            case .landscape:
-                return 8
-            }
-        }
-        
-        var imageLeading: CGFloat {
-            switch self {
-            case .compact:
-                return padding * 2
-            case .exapnded:
-                return 0
-            case .landscape:
-                return 0
-            }
-        }
-        
-        func imageTrailing(screenWidth: CGFloat = UIScreen.main.bounds.width) -> CGFloat {
-            switch self {
-            case .compact:
-                return screenWidth - imageWidth + padding
-            case .exapnded:
-                return 0
-            case .landscape:
-                return 0
-            }
-        }
-        
-        var imageBottom: CGFloat {
-            switch self {
-            case .compact:
-                return padding
-            case .exapnded:
-                return labelHeight
-            case .landscape:
-                return labelHeight
-
-            }
-        }
-        
-        var labelLeading: CGFloat {
-            switch self {
-            case .compact:
-                return imageWidth
-            case .exapnded:
-                return 0
-            case .landscape:
-                return 0
-            }
-        }
-        
-        var labelTrailing: CGFloat {
-            switch self {
-            case .compact:
-                return padding
-            case .exapnded:
-                return 0
-            case .landscape:
-                return 0
-            }
-        }
-        
-        var labelBottom: CGFloat {
-            switch self {
-            case .compact:
-                return (headerHeight / 2 - imageTop() - labelHeight) / 2
-            case .exapnded:
-                return 0
-            case .landscape:
-                return 0
-            }
-        }
-
-        var labelFont: UIFont {
-            
-            switch self {
-            case .compact:
-                return UIFont.systemFont(ofSize: 27, weight: .semibold)
-            case .exapnded:
-                return UIFont.systemFont(ofSize: 27, weight: .semibold)
-            case .landscape:
-                return UIFont.systemFont(ofSize: 18, weight: .semibold)
-            }
-        }
-        
-        var cornerRadius: CGFloat {
-            switch self {
-            case .compact:
-                return 8
-            case .exapnded:
-                return 0
-            case .landscape:
-                return 10
-            }
-        }
-        
-
-        var contentInset: UIEdgeInsets {
-            switch self {
-            case .compact, .exapnded:
-                return UIEdgeInsets(top: headerHeight, left: 0, bottom: 0, right: 0)
-            case .landscape:
-                return UIEdgeInsets(top: -40, left: 0, bottom: 0, right: 0)
-            }
-        }
-    }
-    
     static func create(with movie: Movie) -> MovieDetailViewController {
         
         let controller = UIStoryboard.main.instantiateViewController(withIdentifier: MovieDetailViewController.identifier) as! MovieDetailViewController
@@ -157,7 +20,6 @@ final class MovieDetailViewController: UIViewController {
     
     // MARK: - IBOutlets
     
-    
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             tableDirector = TableDirector(tableView: tableView, scrollDelegate: self)
@@ -166,6 +28,7 @@ final class MovieDetailViewController: UIViewController {
     
     @IBOutlet weak var backButtonView: UIVisualEffectView!
     @IBOutlet weak var backButtonTop: NSLayoutConstraint!
+    @IBOutlet weak var backButtonLeading: NSLayoutConstraint!
     
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var imageViewTrailing: NSLayoutConstraint!
@@ -196,7 +59,12 @@ final class MovieDetailViewController: UIViewController {
         setupView()
         setupGestures()
         setupTableView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
+        navigationController?.navigationBar.isHidden = true
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -214,6 +82,7 @@ final class MovieDetailViewController: UIViewController {
         if UIDevice.current.orientation.isLandscape {
             state = .landscape
             backButtonTop.constant = 8
+//            backButtonLeading.constant = 8
             
             topInset = UIApplication.shared.windows[0].safeAreaInsets.left
             screenWidth = size.width
@@ -383,8 +252,7 @@ extension MovieDetailViewController: UIScrollViewDelegate {
         let expandState: State = .exapnded
         
         let persent = abs(min(((yOffset - 275) / 275), 1) - 1)
-//        let padding = 8 * persent
-
+        
         labelLeading.constant = compactState.labelLeading * persent
         labelTrailing.constant = compactState.labelTrailing * persent
         labelBottom.constant = compactState.labelBottom * persent
@@ -397,5 +265,148 @@ extension MovieDetailViewController: UIScrollViewDelegate {
         
         headerViewHeight.constant = yOffset
         headerView.layoutIfNeeded()
+    }
+}
+
+// MARK: - State
+
+extension MovieDetailViewController {
+    
+    enum State {
+        
+        case compact
+        case exapnded
+        case landscape
+        
+        var padding: CGFloat {
+            return 8
+        }
+        
+        var imageWidth: CGFloat {
+            return 150
+        }
+        
+        var backButtonHeight: CGFloat {
+            return 44
+        }
+        
+        var labelHeight: CGFloat {
+            return 100
+        }
+        
+        var headerHeight: CGFloat {
+            return 550
+        }
+        
+        func imageTop(topInset: CGFloat = UIApplication.shared.windows[0].safeAreaInsets.top) -> CGFloat {
+            switch self {
+            case .compact:
+                return topInset + backButtonHeight + padding
+            case .exapnded:
+                return 0
+            case .landscape:
+                return 8
+            }
+        }
+        
+        var imageLeading: CGFloat {
+            switch self {
+            case .compact:
+                return padding * 2
+            case .exapnded:
+                return 0
+            case .landscape:
+                return 0
+            }
+        }
+        
+        func imageTrailing(screenWidth: CGFloat = UIScreen.main.bounds.width) -> CGFloat {
+            switch self {
+            case .compact:
+                return screenWidth - imageWidth + padding
+            case .exapnded:
+                return 0
+            case .landscape:
+                return 0
+            }
+        }
+        
+        var imageBottom: CGFloat {
+            switch self {
+            case .compact:
+                return padding
+            case .exapnded:
+                return labelHeight
+            case .landscape:
+                return labelHeight
+                
+            }
+        }
+        
+        var labelLeading: CGFloat {
+            switch self {
+            case .compact:
+                return imageWidth
+            case .exapnded:
+                return 0
+            case .landscape:
+                return 0
+            }
+        }
+        
+        var labelTrailing: CGFloat {
+            switch self {
+            case .compact:
+                return padding
+            case .exapnded:
+                return 0
+            case .landscape:
+                return 0
+            }
+        }
+        
+        var labelBottom: CGFloat {
+            switch self {
+            case .compact:
+                return (headerHeight / 2 - imageTop() - labelHeight) / 2
+            case .exapnded:
+                return 0
+            case .landscape:
+                return 0
+            }
+        }
+        
+        var labelFont: UIFont {
+            
+            switch self {
+            case .compact:
+                return UIFont.systemFont(ofSize: 27, weight: .semibold)
+            case .exapnded:
+                return UIFont.systemFont(ofSize: 27, weight: .semibold)
+            case .landscape:
+                return UIFont.systemFont(ofSize: 18, weight: .semibold)
+            }
+        }
+        
+        var cornerRadius: CGFloat {
+            switch self {
+            case .compact:
+                return 8
+            case .exapnded:
+                return 0
+            case .landscape:
+                return 10
+            }
+        }
+        
+        
+        var contentInset: UIEdgeInsets {
+            switch self {
+            case .compact, .exapnded:
+                return UIEdgeInsets(top: headerHeight, left: 0, bottom: 0, right: 0)
+            case .landscape:
+                return UIEdgeInsets(top: -40, left: 0, bottom: 0, right: 0)
+            }
+        }
     }
 }

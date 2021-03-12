@@ -25,6 +25,8 @@ final class CustomNavigationViewController: UINavigationController, UIGestureRec
             navigationBar.setBackgroundImage(nil, for: .default)
             navigationBar.shadowImage = nil
             navigationBar.tintColor = .accent
+            navigationBar.isUserInteractionEnabled = true
+            navigationBar.isHidden = false
             
             coordinator.animate(alongsideTransition: nil) { [weak self] context in
                 
@@ -33,6 +35,9 @@ final class CustomNavigationViewController: UINavigationController, UIGestureRec
                     self?.navigationBar.setBackgroundImage(UIImage(), for: .default)
                     self?.navigationBar.shadowImage = UIImage()
                     self?.navigationBar.tintColor = .white
+                    self?.navigationBar.isUserInteractionEnabled = false
+                    self?.navigationBar.isHidden = true
+                    
                 }
             }
         } else {
@@ -40,6 +45,9 @@ final class CustomNavigationViewController: UINavigationController, UIGestureRec
             navigationBar.setBackgroundImage(nil, for: .default)
             navigationBar.shadowImage = nil
             navigationBar.tintColor = .accent
+            navigationBar.isUserInteractionEnabled = true
+            navigationBar.isHidden = false
+            
         }
         
         return viewController
@@ -53,6 +61,7 @@ final class CustomNavigationViewController: UINavigationController, UIGestureRec
             navigationBar.tintColor = .white
             navigationBar.setBackgroundImage(UIImage(), for: .default)
             navigationBar.shadowImage = UIImage()
+            navigationBar.isUserInteractionEnabled = false
         }
     }
     
