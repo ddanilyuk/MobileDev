@@ -415,7 +415,7 @@ extension MovieDetailViewController {
             case .compact, .exapnded:
                 return UIEdgeInsets(top: headerHeight, left: 0, bottom: 0, right: 0)
             case .landscape:
-                return UIEdgeInsets(top: -40, left: 0, bottom: 0, right: 0)
+                return UIEdgeInsets(top: -30, left: 0, bottom: 0, right: 0)
             }
         }
     }
