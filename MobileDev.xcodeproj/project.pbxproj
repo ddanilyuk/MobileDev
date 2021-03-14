@@ -713,8 +713,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/maxsokolov/TableKit.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.11.0;
+				kind = revision;
+				revision = 893d54d49c882090ca1fb0a2be8af490bbf9bbc4;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

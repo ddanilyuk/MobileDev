@@ -222,7 +222,13 @@
                             <constraint firstItem="P14-wt-0Pp" firstAttribute="leading" secondItem="55w-Ct-foE" secondAttribute="leading" id="lyq-1O-zrB"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Movies" id="uGi-rb-wIU"/>
+                    <navigationItem key="navigationItem" title="Movies" id="uGi-rb-wIU">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="YRw-F0-apB">
+                            <connections>
+                                <action selector="addMovieAction:" destination="Qwa-HQ-8ND" id="bSL-sG-MMC"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="P14-wt-0Pp" id="Qij-Yg-eMw"/>
                     </connections>

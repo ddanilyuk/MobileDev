@@ -47,6 +47,29 @@ struct Movie {
             : UIImage(named: poster)
     }
     
+    init(title: String, year: String, type: String) {
+        
+        self.title = title
+        self.year = year
+        self.type = type
+        imdbID = ""
+        poster = ""
+        rated = nil
+        released = nil
+        production = nil
+        runtime = nil
+        genre = nil
+        director = nil
+        writer = nil
+        actors = nil
+        plot = nil
+        language = nil
+        country = nil
+        awards = nil
+        imdbRating = nil
+        imdbVotes = nil
+    }
+    
     func getSections() -> [(section: Section, values: [FieldRepresenting])] {
         
         let dict = Mirror(reflecting: self).children.enumerated().reduce(into: [Section: [FieldRepresenting]]()) { result, sequence in
