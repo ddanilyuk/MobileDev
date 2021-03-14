@@ -14,11 +14,28 @@ final class MovieDetailViewController: UIViewController {
         
         let controller = UIStoryboard.main.instantiateViewController(withIdentifier: MovieDetailViewController.identifier) as! MovieDetailViewController
         controller.movie = movie
-        
         return controller
     }
     
     // MARK: - IBOutlets
+    
+    @IBOutlet weak var backButtonView: UIVisualEffectView!
+    @IBOutlet weak var backButtonTop: NSLayoutConstraint!
+    @IBOutlet weak var backButtonLeading: NSLayoutConstraint!
+    
+    @IBOutlet weak var posterImageView: UIImageView!
+    @IBOutlet weak var posterImageViewTrailing: NSLayoutConstraint!
+    @IBOutlet weak var posterImageViewLeading: NSLayoutConstraint!
+    @IBOutlet weak var posterImageViewTop: NSLayoutConstraint!
+    @IBOutlet weak var posterImageViewBottom: NSLayoutConstraint!
+    
+    @IBOutlet weak var movieTitleLabel: UILabel!
+    @IBOutlet weak var movieTitleLabelTrailing: NSLayoutConstraint!
+    @IBOutlet weak var movieTitleLabelLeading: NSLayoutConstraint!
+    @IBOutlet weak var movieTitleLabelBottom: NSLayoutConstraint!
+    
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var headerViewHeight: NSLayoutConstraint!
     
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -26,30 +43,12 @@ final class MovieDetailViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var backButtonView: UIVisualEffectView!
-    @IBOutlet weak var backButtonTop: NSLayoutConstraint!
-    @IBOutlet weak var backButtonLeading: NSLayoutConstraint!
-    
-    @IBOutlet weak var posterImageView: UIImageView!
-    @IBOutlet weak var imageViewTrailing: NSLayoutConstraint!
-    @IBOutlet weak var imageViewLeading: NSLayoutConstraint!
-    @IBOutlet weak var imageViewTop: NSLayoutConstraint!
-    @IBOutlet weak var imageViewBottom: NSLayoutConstraint!
-    
-    @IBOutlet weak var movieTitleLabel: UILabel!
-    @IBOutlet weak var labelTrailing: NSLayoutConstraint!
-    @IBOutlet weak var labelLeading: NSLayoutConstraint!
-    @IBOutlet weak var labelBottom: NSLayoutConstraint!
-    
-    @IBOutlet weak var headerView: UIView!
-    @IBOutlet weak var headerViewHeight: NSLayoutConstraint!
-    
     // MARK: - Private properties
     
     private var tableDirector: TableDirector!
     private var movie: Movie!
     private var isRotating = false
-    private var state: State = .compact
+    private var layoutState: LayoutState = .compact
     
     // MARK: - Lifecycle
     
@@ -70,14 +69,13 @@ final class MovieDetailViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        let isNeedToSetLandscape = UIApplication.interfaceOrientation.isLandscape && !state.isLandscape
-        let isNeedToSetPortrait = !UIApplication.interfaceOrientation.isLandscape && state.isLandscape
+        let isNeedToSetLandscape = UIApplication.interfaceOrientation.isLandscape && !layoutState.isLandscape
+        let isNeedToSetPortrait = !UIApplication.interfaceOrientation.isLandscape && layoutState.isLandscape
         
         if isNeedToSetLandscape || isNeedToSetPortrait {
-            state = isNeedToSetLandscape ? .landscape : .exapnded
-            setState(state)
-            let path = IndexPath(row: 0, section: 0)
-            tableView.scrollToRow(at: path, at: .top, animated: true)
+            layoutState = isNeedToSetLandscape ? .landscape : .exapnded
+            setLayout(with: layoutState)
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
     }
     
@@ -102,8 +100,8 @@ final class MovieDetailViewController: UIViewController {
         movieTitleLabel.text = movie.title
         posterImageView.image = movie.posterImage
         
-        state = UIApplication.interfaceOrientation.isLandscape ? .landscape : .exapnded
-        setState(state)
+        layoutState = UIApplication.interfaceOrientation.isLandscape ? .landscape : .exapnded
+        setLayout(with: layoutState)
     }
     
     private func setupGestures() {
@@ -148,9 +146,17 @@ final class MovieDetailViewController: UIViewController {
         
         switch sender.direction {
         case .down:
+            
             tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
         case .up:
-            tableView.scrollRectToVisible(CGRect(x: 0, y: tableView.frame.height - 276, width: 1, height: 1), animated: true)
+            
+            guard -tableView.contentOffset.y == layoutState.headerHeight else {
+                return
+            }
+            tableView.scrollRectToVisible(CGRect(x: 0,
+                                                 y: tableView.frame.height - layoutState.compactHeaderHeight - 1,
+                                                 width: 1,
+                                                 height: 1), animated: true)
         default:
             break
         }
@@ -160,19 +166,19 @@ final class MovieDetailViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    private func setState(_ state: State) {
+    private func setLayout(with state: LayoutState) {
         
-        labelLeading.constant = state.labelLeading
-        labelTrailing.constant = state.labelTrailing
-        labelBottom.constant = state.labelBottom
+        movieTitleLabelLeading.constant = state.movieTitleLabelLeading
+        movieTitleLabelTrailing.constant = state.movieTitleLabelTrailing
+        movieTitleLabelBottom.constant = state.movieTitleLabelBottom
         
-        imageViewBottom.constant = state.imageBottom
-        imageViewTrailing.constant = state.imageTrailing()
-        imageViewLeading.constant = state.imageLeading
-        imageViewTop.constant = state.imageTop()
+        posterImageViewBottom.constant = state.posterImageViewBottom
+        posterImageViewTrailing.constant = state.posterImageViewTrailing
+        posterImageViewLeading.constant = state.posterImageViewLeading
+        posterImageViewTop.constant = state.posterImageViewTop
         
         posterImageView.layer.cornerRadius = state.cornerRadius
-        movieTitleLabel.font = state.labelFont
+        movieTitleLabel.font = state.movieTitleLabelFont
         tableView.contentInset = state.contentInset
         tableView.scrollIndicatorInsets = tableView.contentInset
         
@@ -189,13 +195,16 @@ final class MovieDetailViewController: UIViewController {
 extension MovieDetailViewController: UIScrollViewDelegate {
     
     func endDecelerating(_ scrollView: UIScrollView) {
+        
         let yOffset = -scrollView.contentOffset.y
         
-        guard yOffset > 275 else {
+        guard yOffset > layoutState.compactHeaderHeight else {
             return
         }
         
-        let newOffser = yOffset < 550 - (275 / 2) ? tableView.frame.height - 276 : 0
+        let newOffser = yOffset < layoutState.headerHeight - (layoutState.compactHeaderHeight / 2)
+            ? tableView.frame.height - layoutState.compactHeaderHeight - 1
+            : 0
         tableView.scrollRectToVisible(CGRect(x: 0, y: newOffser, width: 1, height: 1), animated: true)
     }
     
@@ -211,25 +220,24 @@ extension MovieDetailViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        guard state != .landscape, !isRotating else {
+        guard layoutState != .landscape, !isRotating else {
             return
         }
         
-        let yOffset = max(-scrollView.contentOffset.y, 275)
-                
-        let compactState: State = .compact
-        let expandState: State = .exapnded
+        let compactState: LayoutState = .compact
+        let expandState: LayoutState = .exapnded
         
-        let persent = abs(min(((yOffset - 275) / 275), 1) - 1)
+        let yOffset = max(-scrollView.contentOffset.y, layoutState.compactHeaderHeight)
+        let persent = abs(min(((yOffset - layoutState.compactHeaderHeight) / layoutState.compactHeaderHeight), 1) - 1)
         
-        labelLeading.constant = compactState.labelLeading * persent
-        labelTrailing.constant = compactState.labelTrailing * persent
-        labelBottom.constant = compactState.labelBottom * persent
+        movieTitleLabelLeading.constant = compactState.movieTitleLabelLeading * persent
+        movieTitleLabelTrailing.constant = compactState.movieTitleLabelTrailing * persent
+        movieTitleLabelBottom.constant = compactState.movieTitleLabelBottom * persent
         
-        imageViewBottom.constant = expandState.imageBottom - (expandState.imageBottom * persent) + compactState.imageBottom
-        imageViewTrailing.constant = compactState.imageTrailing() * persent
-        imageViewLeading.constant = compactState.imageLeading * persent
-        imageViewTop.constant = compactState.imageTop() * persent
+        posterImageViewBottom.constant = expandState.posterImageViewBottom - (expandState.posterImageViewBottom * persent) + compactState.posterImageViewBottom
+        posterImageViewTrailing.constant = compactState.posterImageViewTrailing * persent
+        posterImageViewLeading.constant = compactState.posterImageViewLeading * persent
+        posterImageViewTop.constant = compactState.posterImageViewTop * persent
         posterImageView.layer.cornerRadius = compactState.cornerRadius * persent
         
         headerViewHeight.constant = yOffset
@@ -237,11 +245,11 @@ extension MovieDetailViewController: UIScrollViewDelegate {
     }
 }
 
-// MARK: - State
+// MARK: - LayoutState
 
 extension MovieDetailViewController {
     
-    enum State {
+    enum LayoutState {
         
         case compact
         case exapnded
@@ -256,6 +264,14 @@ extension MovieDetailViewController {
             }
         }
         
+        var headerHeight: CGFloat {
+            return 550
+        }
+        
+        var compactHeaderHeight: CGFloat {
+            return headerHeight / 2
+        }
+        
         var padding: CGFloat {
             return 8
         }
@@ -268,18 +284,14 @@ extension MovieDetailViewController {
             return 44
         }
         
-        var labelHeight: CGFloat {
+        var titleLabelHeight: CGFloat {
             return 100
         }
         
-        var headerHeight: CGFloat {
-            return 550
-        }
-        
-        func imageTop(topInset: CGFloat = UIApplication.shared.windows[0].safeAreaInsets.top) -> CGFloat {
+        var posterImageViewTop: CGFloat {
             switch self {
             case .compact:
-                return topInset + backButtonHeight + padding
+                return UIApplication.shared.windows[0].safeAreaInsets.top + backButtonHeight + padding
             case .exapnded:
                 return 0
             case .landscape:
@@ -287,7 +299,7 @@ extension MovieDetailViewController {
             }
         }
         
-        var imageLeading: CGFloat {
+        var posterImageViewLeading: CGFloat {
             switch self {
             case .compact:
                 return padding * 2
@@ -298,10 +310,10 @@ extension MovieDetailViewController {
             }
         }
         
-        func imageTrailing(screenWidth: CGFloat = UIScreen.main.bounds.width) -> CGFloat {
+        var posterImageViewTrailing: CGFloat {
             switch self {
             case .compact:
-                return screenWidth - imageWidth + padding
+                return UIScreen.main.bounds.width - imageWidth + padding
             case .exapnded:
                 return 0
             case .landscape:
@@ -309,18 +321,18 @@ extension MovieDetailViewController {
             }
         }
         
-        var imageBottom: CGFloat {
+        var posterImageViewBottom: CGFloat {
             switch self {
             case .compact:
                 return padding
             case .exapnded:
-                return labelHeight
+                return titleLabelHeight
             case .landscape:
-                return labelHeight
+                return titleLabelHeight
             }
         }
         
-        var labelLeading: CGFloat {
+        var movieTitleLabelLeading: CGFloat {
             switch self {
             case .compact:
                 return imageWidth
@@ -331,7 +343,7 @@ extension MovieDetailViewController {
             }
         }
         
-        var labelTrailing: CGFloat {
+        var movieTitleLabelTrailing: CGFloat {
             switch self {
             case .compact:
                 return padding
@@ -342,10 +354,10 @@ extension MovieDetailViewController {
             }
         }
         
-        var labelBottom: CGFloat {
+        var movieTitleLabelBottom: CGFloat {
             switch self {
             case .compact:
-                return (headerHeight / 2 - imageTop() - labelHeight) / 2
+                return (headerHeight / 2 - posterImageViewTop - titleLabelHeight) / 2
             case .exapnded:
                 return 0
             case .landscape:
@@ -353,7 +365,7 @@ extension MovieDetailViewController {
             }
         }
         
-        var labelFont: UIFont {
+        var movieTitleLabelFont: UIFont {
             
             switch self {
             case .compact:

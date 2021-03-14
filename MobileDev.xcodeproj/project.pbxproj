@@ -358,9 +358,9 @@
 			children = (
 				5FA4C88225D570F00055E4E3 /* Tab3RootViewController.swift */,
 				5F0D3E7E25D5DFB60060E84C /* MovieDetailViewController.swift */,
+				5F71788425F0363400B8C738 /* MovieTableViewCell */,
 				5F12156725E9702800B7FBDE /* MovieDetailSectionView */,
 				5F6314AE25DFB5960040C157 /* FieldTableViewCell */,
-				5F71788425F0363400B8C738 /* MovieTableViewCell */,
 			);
 			path = Tab3;
 			sourceTree = "<group>";

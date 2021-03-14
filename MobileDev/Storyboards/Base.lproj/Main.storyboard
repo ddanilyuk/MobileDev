@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18121" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="W4S-PR-V5K">
-    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18092"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -14,11 +13,11 @@
             <objects>
                 <viewController storyboardIdentifier="Tab1RootViewController" id="BYZ-38-t0r" customClass="Tab1RootViewController" customModule="MobileDev" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Данилюк Денис Група ІВ-82 ЗК ІВ-8208" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4pF-Fr-OvP">
-                                <rect key="frame" x="124" y="356" width="127" height="61"/>
+                                <rect key="frame" x="236.5" y="245" width="127" height="61"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -63,20 +62,20 @@
             <objects>
                 <viewController storyboardIdentifier="Tab2RootViewController" id="gAv-pZ-n1o" customClass="Tab2RootViewController" customModule="MobileDev" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zCE-yC-N74">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Zd-XA-ilM">
-                                <rect key="frame" x="0.0" y="199" width="375" height="375"/>
+                                <rect key="frame" x="0.0" y="-24.5" width="600" height="600"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="quF-7o-pCQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="750" height="375"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1200" height="600"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="SgU-QI-Ks8">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Графік" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LTQ-qS-8dR">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="600" height="30"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="roC-xD-cuw"/>
@@ -86,16 +85,16 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N7x-k1-jOc" customClass="ChartView" customModule="MobileDev" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="30" width="375" height="345"/>
+                                                        <rect key="frame" x="0.0" y="30" width="600" height="570"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     </view>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Xhh-7c-7Xg">
-                                                <rect key="frame" x="375" y="0.0" width="375" height="375"/>
+                                                <rect key="frame" x="600" y="0.0" width="600" height="600"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Діаграма" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cVx-hE-9Od">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="600" height="30"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="XkT-AH-7BH"/>
@@ -105,7 +104,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V3i-dz-mHT" customClass="GraphView" customModule="MobileDev" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="30" width="375" height="345"/>
+                                                        <rect key="frame" x="0.0" y="30" width="600" height="570"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     </view>
                                                 </subviews>
@@ -129,7 +128,7 @@
                                 </variation>
                             </scrollView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="016-c2-R5q">
-                                <rect key="frame" x="136.33333333333334" y="578" width="102.33333333333334" height="30"/>
+                                <rect key="frame" x="249" y="579.5" width="102.5" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="JUk-pX-UEQ"/>
                                 </constraints>
@@ -205,11 +204,11 @@
             <objects>
                 <viewController storyboardIdentifier="Tab3RootViewController" id="Qwa-HQ-8ND" customClass="Tab3RootViewController" customModule="MobileDev" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BnC-5B-eyM">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="P14-wt-0Pp">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -236,36 +235,36 @@
             <objects>
                 <viewController storyboardIdentifier="MovieDetailViewController" id="BYN-vb-9kH" customClass="MovieDetailViewController" customModule="MobileDev" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Xra-x1-hl4">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="50" estimatedSectionHeaderHeight="50" sectionFooterHeight="1" estimatedSectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="HTZ-bE-FYA">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" name="BackgroundGray"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="VGI-d8-AIO">
-                                        <rect key="frame" x="0.0" y="49" width="375" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="49.5" width="600" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VGI-d8-AIO" id="gUO-ri-P5v">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m2N-Na-A0j">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="550"/>
                                 <subviews>
                                     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G4S-OX-NcY">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="450"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="450"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="KS8-DT-hZM">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="450"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="450"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </view>
                                         <blurEffect style="regular"/>
                                     </visualEffectView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Poster_03" translatesAutoresizingMaskIntoConstraints="NO" id="ecR-BD-XEd">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="450"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="450"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="450" id="Uaf-FD-msd"/>
@@ -277,7 +276,7 @@
                                         </variation>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Star Wars: Episode IV - A New Hope" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kd0-mh-v84">
-                                        <rect key="frame" x="0.0" y="450" width="375" height="100"/>
+                                        <rect key="frame" x="0.0" y="450" width="600" height="100"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="lXN-Fe-GzY"/>
                                         </constraints>
@@ -391,15 +390,15 @@
                         <outlet property="backButtonView" destination="vt2-SK-zx4" id="gZy-7N-UB8"/>
                         <outlet property="headerView" destination="m2N-Na-A0j" id="Bhx-1s-TF9"/>
                         <outlet property="headerViewHeight" destination="2Qm-70-1x5" id="O70-Bd-w2n"/>
-                        <outlet property="imageViewBottom" destination="4eU-Ps-jan" id="pyM-wv-wTU"/>
-                        <outlet property="imageViewLeading" destination="fT0-lm-0b0" id="4By-Jq-JSX"/>
-                        <outlet property="imageViewTop" destination="m4s-12-yhj" id="096-BU-4kW"/>
-                        <outlet property="imageViewTrailing" destination="uF0-Vc-CGS" id="7yX-7p-vIR"/>
-                        <outlet property="labelBottom" destination="awL-65-fGI" id="Tck-OB-7GU"/>
-                        <outlet property="labelLeading" destination="mxg-XM-CUw" id="q83-Ri-lP1"/>
-                        <outlet property="labelTrailing" destination="eoa-Aw-Bwd" id="Dha-OB-SvR"/>
                         <outlet property="movieTitleLabel" destination="Kd0-mh-v84" id="5H1-u7-pkT"/>
+                        <outlet property="movieTitleLabelBottom" destination="awL-65-fGI" id="Tck-OB-7GU"/>
+                        <outlet property="movieTitleLabelLeading" destination="mxg-XM-CUw" id="q83-Ri-lP1"/>
+                        <outlet property="movieTitleLabelTrailing" destination="eoa-Aw-Bwd" id="Dha-OB-SvR"/>
                         <outlet property="posterImageView" destination="ecR-BD-XEd" id="r0c-jd-vHL"/>
+                        <outlet property="posterImageViewBottom" destination="4eU-Ps-jan" id="pyM-wv-wTU"/>
+                        <outlet property="posterImageViewLeading" destination="fT0-lm-0b0" id="4By-Jq-JSX"/>
+                        <outlet property="posterImageViewTop" destination="m4s-12-yhj" id="096-BU-4kW"/>
+                        <outlet property="posterImageViewTrailing" destination="uF0-Vc-CGS" id="7yX-7p-vIR"/>
                         <outlet property="tableView" destination="HTZ-bE-FYA" id="SlQ-oH-522"/>
                     </connections>
                 </viewController>
