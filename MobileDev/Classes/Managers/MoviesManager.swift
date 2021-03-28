@@ -36,6 +36,10 @@ final class MoviesManager {
     
     func getMovie(with id: String) -> Movie? {
         
+        guard !id.isEmpty else {
+            return nil
+        }
+        
         do {
             if let path = Bundle.main.path(forResource: id, ofType: "txt"),
                let jsonData = try String(contentsOfFile: path, encoding: String.Encoding.utf8).data(using: .utf8) {

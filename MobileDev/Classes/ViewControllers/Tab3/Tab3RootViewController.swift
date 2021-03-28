@@ -21,8 +21,11 @@ final class Tab3RootViewController: UIViewController {
     // MARK: - Private properties
     
     private var tableDirector: TableDirector!
+    private var searchController: UISearchController!
     private var movieManager = MoviesManager.shared
     private var movies: [Movie] = []
+    private var filteredMovies: [Movie] = []
+    private var isSearching = false
     
     // MARK: - Lifecycle
     
@@ -31,7 +34,10 @@ final class Tab3RootViewController: UIViewController {
         
         movies = movieManager.fetchMovies()
         setupTableView()
+        setupSearch()
     }
+    
+    // MARK: - Setup methods
     
     private func setupTableView() {
         
@@ -41,13 +47,26 @@ final class Tab3RootViewController: UIViewController {
         updateTableView()
     }
     
+    private func setupSearch() {
+        
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
+    }
+    
+    // MARK: - Private methods
+    
     private func updateTableView() {
         
         tableDirector.clear()
         tableView.separatorStyle = .none
         
         let section = TableSection()
-        movies.forEach { movie in
+        
+        let data = isSearching ? filteredMovies : movies
+        data.forEach { movie in
             let row = createRow(from: movie)
             section += row
         }
@@ -56,10 +75,6 @@ final class Tab3RootViewController: UIViewController {
     }
     
     private func createRow(from item: Movie) -> TableRow<MovieTableViewCell> {
-        
-//        let corners: UIRectCorner = CellType.self == ReceivedMessageTableViewCell.self
-//            ? [.bottomRight, .topLeft, .topRight]
-//            : [.bottomLeft, .topLeft, .topRight]
         
         return TableRow<MovieTableViewCell>(item: item)
             .on(.click) { [weak self] row in
@@ -73,82 +88,122 @@ final class Tab3RootViewController: UIViewController {
                 return UIContextMenuConfiguration(identifier: item.indexPath as NSIndexPath, previewProvider: nil) { _ in
                     
                     var actions: [UIAction] = []
-                    
-                    let deleteUIAction = UIAction(title: "Delete", image: UIImage(), attributes: .destructive) { _ in
-//                        deleteAction?()
-//                        self.movies.removeAll { $0.title == item.item.title }
-                        self.tableView.beginUpdates()
-                        self.tableDirector.sections.first?.delete(rowAt: item.indexPath.row)
-                        self.tableView.deleteRows(at: [item.indexPath], with: .fade)
-                        self.tableView.endUpdates()
-
+                    let deleteUIAction = UIAction(title: "Delete", image: .trash, attributes: .destructive) { _ in
+                        DispatchQueue.main.async {
+                            self.deleteMovie(item.item, at: item.indexPath)
+                        }
                     }
                     actions.append(deleteUIAction)
-
                     return UIMenu(children: actions)
                 }
             }
-            .on(.previewForHighlightingContextMenu) { item -> UITargetedPreview in
+            .on(.previewForHighlightingContextMenu) { [weak self] item -> UITargetedPreview in
                 
-                let view = item.cell?.mainView ?? UIView()
-                let parameters = UIPreviewParameters()
-                parameters.backgroundColor = .clear
-                parameters.visiblePath = UIBezierPath(roundedRect: view.bounds, cornerRadius: 20)
-                
-                return UITargetedPreview(view: view, parameters: parameters)
+                guard let self = self else {
+                    return UITargetedPreview(view: UIView())
+                }
+                return self.createTargetedPreview(for: item)
             }
-            .on(.previewForDismissingContextMenu) { item -> UITargetedPreview in
+            .on(.previewForDismissingContextMenu) { [weak self] item -> UITargetedPreview in
                 
-                let view = item.cell?.mainView ?? UIView()
-                let parameters = UIPreviewParameters()
-                parameters.backgroundColor = .clear
-                parameters.visiblePath = UIBezierPath(roundedRect: view.bounds, cornerRadius: 20)
-                
-                return UITargetedPreview(view: view, parameters: parameters)
+                guard let self = self else {
+                    return UITargetedPreview(view: UIView())
+                }
+                return self.createTargetedPreview(for: item)
             }
+    }
+    
+    private func createTargetedPreview(for item: TableRowActionOptions<MovieTableViewCell>) -> UITargetedPreview {
+        
+        let view = item.cell?.mainView ?? UIView()
+        let parameters = UIPreviewParameters()
+        parameters.backgroundColor = .clear
+        parameters.visiblePath = UIBezierPath(roundedRect: view.bounds, cornerRadius: 20)
+        parameters.shadowPath = UIBezierPath(roundedRect: view.bounds, cornerRadius: 20)
+        return UITargetedPreview(view: view, parameters: parameters)
     }
     
     private func createNewMovie(title: String, year: String, type: String) {
         
-        let movie = Movie(title: title, year: year, type: type)
-//        let newIndexPath = IndexPath(row: movies.count + 1, section: 0)
-//        let row = createRow(from: movie)
+        let newMovie = Movie(title: title, year: year, type: type)
+        let newIndexPath = IndexPath(row: movies.count, section: 0)
         
-        movies.append(movie)
-//        tableView.beginUpdates()
-//        tableDirector.sections.first?.append(row: row)
-//        tableView.insertRows(at: [newIndexPath], with: .automatic)
-//        tableView.endUpdates()
+        let row = createRow(from: newMovie)
         
-        updateTableView()
+        movies.append(newMovie)
+        
+        tableView.beginUpdates()
+        tableView.insertRows(at: [newIndexPath], with: .fade)
+        tableDirector.sections.first?.append(row: row)
+        tableView.endUpdates()
+        
+        tableView.scrollToRow(at: newIndexPath, at: .bottom, animated: true)
+    }
+    
+    private func deleteMovie(_ movie: Movie, at indexPath: IndexPath) {
+        
+        tableView.beginUpdates()
+        tableDirector.sections.first?.delete(rowAt: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .fade)
+        tableView.endUpdates()
+        
+        movies.removeAll { $0.title == movie.title }
     }
     
     @IBAction func addMovieAction(_ sender: UIBarButtonItem) {
         
         let alert = UIAlertController(title: "Add new movie", message: "", preferredStyle: .alert)
         
-        alert.addTextField { textField in
-            textField.placeholder = "Movie title"
-        }
+        // Text fields
+        alert.addTextField { $0.placeholder = "Movie title" }
+        alert.addTextField { $0.placeholder = "Year" }
+        alert.addTextField { $0.placeholder = "Type" }
         
-        alert.addTextField { textField in
-            textField.placeholder = "Year"
-        }
-        
-        alert.addTextField { textField in
-            textField.placeholder = "Type"
-        }
-        
-        // 3. Grab the value from the text field, and print it when the user clicks OK.
-        alert.addAction(UIAlertAction(title: "OK", style: .default) { [weak alert, weak self] _ in
+        // Actions
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Add", style: .default) { [weak alert, weak self] _ in
             
-            let title = alert?.textFields?[0].text ?? "Title"
-            let year = alert?.textFields?[1].text ?? ""
-            let type = alert?.textFields?[2].text ?? ""
+            guard let title = alert?.textFields?[0].text,
+                  let year = alert?.textFields?[1].text,
+                  let type = alert?.textFields?[2].text else {
+                return
+            }
+            
             self?.createNewMovie(title: title, year: year, type: type)
         })
         
         present(alert, animated: true)
     }
+}
+
+// MARK: - UISearchResultsUpdating
+
+extension Tab3RootViewController: UISearchResultsUpdating {
     
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        guard let enteredText = searchController.searchBar.text?.lowercased(),
+              !enteredText.isEmpty else {
+            isSearching = false
+            updateTableView()
+            return
+        }
+        
+        filteredMovies = movies.filter { $0.title.lowercased().contains(enteredText) }
+        filteredMovies.isEmpty ? tableView.addPlaceholder() : tableView.removePlaceholder()
+        isSearching = true
+        updateTableView()
+    }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension Tab3RootViewController: UISearchBarDelegate {
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
+        isSearching = false
+        tableView.removePlaceholder()
+        updateTableView()
+    }
 }

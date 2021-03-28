@@ -24,6 +24,8 @@
 		5F0D3E9325D5F9F40060E84C /* CustomNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0D3E9225D5F9F40060E84C /* CustomNavigationViewController.swift */; };
 		5F12156225E9701900B7FBDE /* MovieDetailSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F12156125E9701900B7FBDE /* MovieDetailSectionView.swift */; };
 		5F12156525E9702200B7FBDE /* MovieDetailSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F12156425E9702200B7FBDE /* MovieDetailSectionView.xib */; };
+		5F214F3D2610AFF900B9F209 /* UITableView+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F214F3C2610AFF900B9F209 /* UITableView+Placeholder.swift */; };
+		5F214F402610B66400B9F209 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5F214F3F2610B66400B9F209 /* IQKeyboardManagerSwift */; };
 		5F328AD325E95DE3007FD653 /* ShadowRoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F328AD225E95DE3007FD653 /* ShadowRoundedImageView.swift */; };
 		5F4C1B6325D32677006A84F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4C1B6225D32677006A84F9 /* AppDelegate.swift */; };
 		5F4C1B6725D32677006A84F9 /* Tab1RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4C1B6625D32677006A84F9 /* Tab1RootViewController.swift */; };
@@ -69,6 +71,7 @@
 		5F0D3E9225D5F9F40060E84C /* CustomNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationViewController.swift; sourceTree = "<group>"; };
 		5F12156125E9701900B7FBDE /* MovieDetailSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailSectionView.swift; sourceTree = "<group>"; };
 		5F12156425E9702200B7FBDE /* MovieDetailSectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieDetailSectionView.xib; sourceTree = "<group>"; };
+		5F214F3C2610AFF900B9F209 /* UITableView+Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Placeholder.swift"; sourceTree = "<group>"; };
 		5F328AD225E95DE3007FD653 /* ShadowRoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowRoundedImageView.swift; sourceTree = "<group>"; };
 		5F4C1B5F25D32677006A84F9 /* MobileDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F4C1B6225D32677006A84F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +107,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FA4C87E25D570A70055E4E3 /* TableKit in Frameworks */,
+				5F214F402610B66400B9F209 /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +259,7 @@
 				5F71789325F036F200B8C738 /* UIView */,
 				5F4C1B8725D327DA006A84F9 /* UIStoryboard */,
 				5F0D3E9025D5E6850060E84C /* UIResponder */,
+				5F214F3C2610AFF900B9F209 /* UITableView+Placeholder.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -410,6 +415,7 @@
 			name = MobileDev;
 			packageProductDependencies = (
 				5FA4C87D25D570A70055E4E3 /* TableKit */,
+				5F214F3F2610B66400B9F209 /* IQKeyboardManagerSwift */,
 			);
 			productName = MobileDev;
 			productReference = 5F4C1B5F25D32677006A84F9 /* MobileDev.app */;
@@ -440,6 +446,7 @@
 			mainGroup = 5F4C1B5625D32677006A84F9;
 			packageReferences = (
 				5FA4C87C25D570A70055E4E3 /* XCRemoteSwiftPackageReference "TableKit" */,
+				5F214F3E2610B66400B9F209 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = 5F4C1B6025D32677006A84F9 /* Products */;
 			projectDirPath = "";
@@ -484,6 +491,7 @@
 			files = (
 				5F71789925F03C5300B8C738 /* UIImage+Ext.swift in Sources */,
 				5F4C1B9125D328DF006A84F9 /* Tab2RootViewController.swift in Sources */,
+				5F214F3D2610AFF900B9F209 /* UITableView+Placeholder.swift in Sources */,
 				5F4C1B6725D32677006A84F9 /* Tab1RootViewController.swift in Sources */,
 				5F4C1B8D25D32874006A84F9 /* UIApplication+Keyboard.swift in Sources */,
 				5FAE16F625D3FD000058A105 /* ChartView.swift in Sources */,
@@ -709,6 +717,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5F214F3E2610B66400B9F209 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.5.6;
+			};
+		};
 		5FA4C87C25D570A70055E4E3 /* XCRemoteSwiftPackageReference "TableKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/maxsokolov/TableKit.git";
@@ -720,6 +736,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5F214F3F2610B66400B9F209 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5F214F3E2610B66400B9F209 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
 		5FA4C87D25D570A70055E4E3 /* TableKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5FA4C87C25D570A70055E4E3 /* XCRemoteSwiftPackageReference "TableKit" */;
