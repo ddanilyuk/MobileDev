@@ -10,16 +10,42 @@ import TableKit
 
 final class MovieTableViewCell: UITableViewCell {
     
+    // MARK: - IBOutlets
+    
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var yearLabel: UILabel!
     
+    // MARK: - Lifecycle
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         selectionStyle = .none
+        setupView()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        mainView.layer.shadowPath = UIBezierPath(rect: mainView.bounds).cgPath
+    }
+    
+    // MARK: - Setup methdods
+    
+    private func setupView() {
+        
+        let layer = CALayer()
+        layer.backgroundColor = UIColor.black.withAlphaComponent(0.45).cgColor
+        posterImage.layer.addSublayer(layer)
+        
+        mainView.layer.cornerRadius = 20
+        mainView.layer.shadowRadius = 8
+        mainView.layer.shadowOffset = .zero
+        mainView.layer.shadowOpacity = 0.4
+        mainView.layer.shadowColor = UIColor.black.cgColor
     }
 }
 
