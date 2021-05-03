@@ -12,4 +12,8 @@ extension UIImage {
     static var filmPlaceholder: UIImage {
         return UIImage(named: "filmPlaceholder")!
     }
+    
+    static var trash: UIImage {
+        return UIImage(systemName: "trash")!
+    }
 }
