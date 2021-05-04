@@ -30,6 +30,10 @@
 	<string>Main</string>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Add a Profile Picture by allowing MobileDev to access your photo gallery.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Add a Profile Picture by allowing MobileDev to access your photo gallery.</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

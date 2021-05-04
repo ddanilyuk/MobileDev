@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18121" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="W4S-PR-V5K">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="W4S-PR-V5K">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18092"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -52,6 +53,7 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="x0F-mb-xgy"/>
                         <segue destination="gAv-pZ-n1o" kind="relationship" relationship="viewControllers" id="J51-Ib-5a9"/>
                         <segue destination="bd7-8S-off" kind="relationship" relationship="viewControllers" id="Ejk-xA-9O1"/>
+                        <segue destination="g0Z-hw-R3v" kind="relationship" relationship="viewControllers" id="Ak5-FH-k84"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mE6-Rh-Oxp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -199,6 +201,80 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bLu-0I-lgK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="838" y="132"/>
+        </scene>
+        <!--Images-->
+        <scene sceneID="4nW-KB-WsA">
+            <objects>
+                <viewController storyboardIdentifier="Tab4RootviewController" id="P2S-I3-rwC" customClass="Tab4RootviewController" customModule="MobileDev" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nzu-QK-rOj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="E8z-bG-hjF">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="qAl-k2-B1g">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="9xs-nd-mx7">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="LDW-sH-dI0">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="aPW-QA-8UR"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="E8z-bG-hjF" firstAttribute="leading" secondItem="aPW-QA-8UR" secondAttribute="leading" id="4C0-z6-VNm"/>
+                            <constraint firstItem="E8z-bG-hjF" firstAttribute="top" secondItem="nzu-QK-rOj" secondAttribute="top" id="E2e-QS-Kbf"/>
+                            <constraint firstItem="aPW-QA-8UR" firstAttribute="trailing" secondItem="E8z-bG-hjF" secondAttribute="trailing" id="HS2-34-zOb"/>
+                            <constraint firstAttribute="bottom" secondItem="E8z-bG-hjF" secondAttribute="bottom" id="wTi-Pk-s51"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Images" id="xF7-QB-itN">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="aoU-47-7ud">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="r8h-2i-2OO">
+                                <rect key="frame" x="20" y="7" width="92" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                <state key="normal" title="Add image">
+                                    <color key="titleColor" name="AccentColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="addImageAction:" destination="P2S-I3-rwC" eventType="touchUpInside" id="Jc9-cB-5nT"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="9m9-ZY-dcx">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="fzx-cp-xeX">
+                                <rect key="frame" x="296" y="7" width="98" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                <state key="normal" title="Random color">
+                                    <color key="titleColor" name="AccentColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="randomColorAction:" destination="P2S-I3-rwC" eventType="touchUpInside" id="GJj-ko-164"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="collectionView" destination="E8z-bG-hjF" id="p13-Cr-l4B"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Vw-gL-pg3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1747.826086956522" y="870.53571428571422"/>
         </scene>
         <!--Movies-->
         <scene sceneID="QD4-8g-XaK">
@@ -401,6 +477,25 @@
             </objects>
             <point key="canvasLocation" x="3341.5999999999999" y="131.78410794602701"/>
         </scene>
+        <!--Images-->
+        <scene sceneID="hS2-rb-fli">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="g0Z-hw-R3v" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Images" image="rectangle.3.offgrid" catalog="system" id="AcH-o2-p0G"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="HJr-C7-q7H">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="P2S-I3-rwC" kind="relationship" relationship="rootViewController" id="lAj-vX-pO5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zhr-kF-I35" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="837.68115942028987" y="870.53571428571422"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Poster_03" width="300" height="465"/>
@@ -408,6 +503,7 @@
         <image name="function" catalog="system" width="128" height="70"/>
         <image name="list.and.film" catalog="system" width="128" height="86"/>
         <image name="person.crop.circle" catalog="system" width="128" height="121"/>
+        <image name="rectangle.3.offgrid" catalog="system" width="128" height="81"/>
         <namedColor name="AccentColor">
             <color red="0.10199999809265137" green="0.097999997437000275" blue="0.11400000005960464" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
