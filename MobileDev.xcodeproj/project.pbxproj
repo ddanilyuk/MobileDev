@@ -42,6 +42,16 @@
 		5F71788825F0363400B8C738 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F71788625F0363400B8C738 /* MovieTableViewCell.swift */; };
 		5F71789525F0371D00B8C738 /* UIView+IBInspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F71789425F0371D00B8C738 /* UIView+IBInspectable.swift */; };
 		5F71789925F03C5300B8C738 /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F71789825F03C5300B8C738 /* UIImage+Ext.swift */; };
+		5F8FA24026407B3900E24685 /* Tab4RootviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8FA23F26407B3900E24685 /* Tab4RootviewController.swift */; };
+		5F8FA24226407BEF00E24685 /* CustomCompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8FA24126407BEF00E24685 /* CustomCompositionalLayout.swift */; };
+		5F8FA24426407F0600E24685 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8FA24326407F0600E24685 /* ImageCell.swift */; };
+		5F8FA246264150F100E24685 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8FA245264150F100E24685 /* ImagePicker.swift */; };
+		5F8FA2482641555800E24685 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8FA2472641555800E24685 /* AlertManager.swift */; };
+		5F8FA24A2641607900E24685 /* UIApplication+TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8FA2492641607900E24685 /* UIApplication+TopViewController.swift */; };
+		5F8FA24D264160D600E24685 /* UIColor+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8FA24C264160D600E24685 /* UIColor+Random.swift */; };
+		5F8FA250264160E900E24685 /* CGFloat+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8FA24F264160E900E24685 /* CGFloat+Random.swift */; };
+		5F8FA2522641611E00E24685 /* UIImage+SolidColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8FA2512641611E00E24685 /* UIImage+SolidColor.swift */; };
+		5F8FA2562641618F00E24685 /* UICollectionView+Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8FA2552641618F00E24685 /* UICollectionView+Section.swift */; };
 		5F9A1BC125DED83100BE0B84 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9A1BC025DED83000BE0B84 /* UIColor+Ext.swift */; };
 		5FA4C87E25D570A70055E4E3 /* TableKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5FA4C87D25D570A70055E4E3 /* TableKit */; };
 		5FA4C88325D570F00055E4E3 /* Tab3RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA4C88225D570F00055E4E3 /* Tab3RootViewController.swift */; };
@@ -91,6 +101,16 @@
 		5F71788625F0363400B8C738 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		5F71789425F0371D00B8C738 /* UIView+IBInspectable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+IBInspectable.swift"; sourceTree = "<group>"; };
 		5F71789825F03C5300B8C738 /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
+		5F8FA23F26407B3900E24685 /* Tab4RootviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab4RootviewController.swift; sourceTree = "<group>"; };
+		5F8FA24126407BEF00E24685 /* CustomCompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCompositionalLayout.swift; sourceTree = "<group>"; };
+		5F8FA24326407F0600E24685 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		5F8FA245264150F100E24685 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		5F8FA2472641555800E24685 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
+		5F8FA2492641607900E24685 /* UIApplication+TopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+TopViewController.swift"; sourceTree = "<group>"; };
+		5F8FA24C264160D600E24685 /* UIColor+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Random.swift"; sourceTree = "<group>"; };
+		5F8FA24F264160E900E24685 /* CGFloat+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Random.swift"; sourceTree = "<group>"; };
+		5F8FA2512641611E00E24685 /* UIImage+SolidColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+SolidColor.swift"; sourceTree = "<group>"; };
+		5F8FA2552641618F00E24685 /* UICollectionView+Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Section.swift"; sourceTree = "<group>"; };
 		5F9A1BC025DED83000BE0B84 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		5FA4C88225D570F00055E4E3 /* Tab3RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab3RootViewController.swift; sourceTree = "<group>"; };
 		5FA4C88F25D571860055E4E3 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
@@ -117,6 +137,7 @@
 		5F0D3E4D25D591700060E84C /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				5F8FA2472641555800E24685 /* AlertManager.swift */,
 				5F0D3E4E25D5919A0060E84C /* MoviesManager.swift */,
 			);
 			path = Managers;
@@ -228,6 +249,7 @@
 				5F4C1B8225D32750006A84F9 /* Tab1 */,
 				5F4C1B8F25D328CF006A84F9 /* Tab2 */,
 				5FA4C88025D570B10055E4E3 /* Tab3 */,
+				5F8FA23E26407AAB00E24685 /* Tab4 */,
 				5FB4685125E04D9C00E7E1C3 /* Common */,
 			);
 			path = ViewControllers;
@@ -245,8 +267,6 @@
 			isa = PBXGroup;
 			children = (
 				5F6314B525DFBBC20040C157 /* Foundation */,
-				5F71789725F03C4600B8C738 /* UIImage */,
-				5F4C1B8625D327C2006A84F9 /* UIApplication */,
 				5F4C1B8525D327BC006A84F9 /* UIKit */,
 			);
 			path = Extensions;
@@ -255,11 +275,15 @@
 		5F4C1B8525D327BC006A84F9 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				5F8FA2542641617E00E24685 /* UICollectionView */,
+				5F8FA2532641616E00E24685 /* UITableView */,
+				5F8FA24E264160DC00E24685 /* CGFloat */,
+				5F4C1B8625D327C2006A84F9 /* UIApplication */,
+				5F71789725F03C4600B8C738 /* UIImage */,
 				5F9A1BBF25DED82400BE0B84 /* UIColor */,
 				5F71789325F036F200B8C738 /* UIView */,
 				5F4C1B8725D327DA006A84F9 /* UIStoryboard */,
 				5F0D3E9025D5E6850060E84C /* UIResponder */,
-				5F214F3C2610AFF900B9F209 /* UITableView+Placeholder.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -269,6 +293,7 @@
 			children = (
 				5F4C1B8C25D32874006A84F9 /* UIApplication+Keyboard.swift */,
 				5FDD8AA125FBEBF70006822C /* UIApplication+InterfaceOrientation.swift */,
+				5F8FA2492641607900E24685 /* UIApplication+TopViewController.swift */,
 			);
 			path = UIApplication;
 			sourceTree = "<group>";
@@ -346,13 +371,49 @@
 			isa = PBXGroup;
 			children = (
 				5F71789825F03C5300B8C738 /* UIImage+Ext.swift */,
+				5F8FA2512641611E00E24685 /* UIImage+SolidColor.swift */,
 			);
 			path = UIImage;
+			sourceTree = "<group>";
+		};
+		5F8FA23E26407AAB00E24685 /* Tab4 */ = {
+			isa = PBXGroup;
+			children = (
+				5F8FA23F26407B3900E24685 /* Tab4RootviewController.swift */,
+				5F8FA24126407BEF00E24685 /* CustomCompositionalLayout.swift */,
+				5F8FA24326407F0600E24685 /* ImageCell.swift */,
+			);
+			path = Tab4;
+			sourceTree = "<group>";
+		};
+		5F8FA24E264160DC00E24685 /* CGFloat */ = {
+			isa = PBXGroup;
+			children = (
+				5F8FA24F264160E900E24685 /* CGFloat+Random.swift */,
+			);
+			path = CGFloat;
+			sourceTree = "<group>";
+		};
+		5F8FA2532641616E00E24685 /* UITableView */ = {
+			isa = PBXGroup;
+			children = (
+				5F214F3C2610AFF900B9F209 /* UITableView+Placeholder.swift */,
+			);
+			path = UITableView;
+			sourceTree = "<group>";
+		};
+		5F8FA2542641617E00E24685 /* UICollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				5F8FA2552641618F00E24685 /* UICollectionView+Section.swift */,
+			);
+			path = UICollectionView;
 			sourceTree = "<group>";
 		};
 		5F9A1BBF25DED82400BE0B84 /* UIColor */ = {
 			isa = PBXGroup;
 			children = (
+				5F8FA24C264160D600E24685 /* UIColor+Random.swift */,
 				5F9A1BC025DED83000BE0B84 /* UIColor+Ext.swift */,
 			);
 			path = UIColor;
@@ -393,6 +454,7 @@
 			children = (
 				5F0D3E9225D5F9F40060E84C /* CustomNavigationViewController.swift */,
 				5F328AD225E95DE3007FD653 /* ShadowRoundedImageView.swift */,
+				5F8FA245264150F100E24685 /* ImagePicker.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -491,29 +553,39 @@
 			files = (
 				5F71789925F03C5300B8C738 /* UIImage+Ext.swift in Sources */,
 				5F4C1B9125D328DF006A84F9 /* Tab2RootViewController.swift in Sources */,
+				5F8FA2482641555800E24685 /* AlertManager.swift in Sources */,
 				5F214F3D2610AFF900B9F209 /* UITableView+Placeholder.swift in Sources */,
 				5F4C1B6725D32677006A84F9 /* Tab1RootViewController.swift in Sources */,
+				5F8FA2522641611E00E24685 /* UIImage+SolidColor.swift in Sources */,
 				5F4C1B8D25D32874006A84F9 /* UIApplication+Keyboard.swift in Sources */,
+				5F8FA24426407F0600E24685 /* ImageCell.swift in Sources */,
 				5FAE16F625D3FD000058A105 /* ChartView.swift in Sources */,
 				5FDD8AA225FBEBF70006822C /* UIApplication+InterfaceOrientation.swift in Sources */,
 				5F0D3E7F25D5DFB60060E84C /* MovieDetailViewController.swift in Sources */,
 				5F12156225E9701900B7FBDE /* MovieDetailSectionView.swift in Sources */,
 				5F0D3E8E25D5E6820060E84C /* UIView+FromNib.swift in Sources */,
+				5F8FA2562641618F00E24685 /* UICollectionView+Section.swift in Sources */,
 				5F9A1BC125DED83100BE0B84 /* UIColor+Ext.swift in Sources */,
+				5F8FA24026407B3900E24685 /* Tab4RootviewController.swift in Sources */,
+				5F8FA24A2641607900E24685 /* UIApplication+TopViewController.swift in Sources */,
 				5F0D3E4F25D5919A0060E84C /* MoviesManager.swift in Sources */,
 				5F6314B825DFBBE40040C157 /* String+Capitalized.swift in Sources */,
 				5F6314B125DFB5C50040C157 /* FieldTableViewCell.swift in Sources */,
 				5F328AD325E95DE3007FD653 /* ShadowRoundedImageView.swift in Sources */,
+				5F8FA246264150F100E24685 /* ImagePicker.swift in Sources */,
 				5FA4C88325D570F00055E4E3 /* Tab3RootViewController.swift in Sources */,
 				5FA4C89025D571860055E4E3 /* Movie.swift in Sources */,
 				5F0D3E9325D5F9F40060E84C /* CustomNavigationViewController.swift in Sources */,
 				5F4C1B6325D32677006A84F9 /* AppDelegate.swift in Sources */,
+				5F8FA24D264160D600E24685 /* UIColor+Random.swift in Sources */,
 				5F0D3E8A25D5E62B0060E84C /* UIResponder+Identifier.swift in Sources */,
+				5F8FA24226407BEF00E24685 /* CustomCompositionalLayout.swift in Sources */,
 				5FA4C89925D576CD0055E4E3 /* Pagination.swift in Sources */,
 				5F71789525F0371D00B8C738 /* UIView+IBInspectable.swift in Sources */,
 				5F4C1B8925D327F1006A84F9 /* UIStoryboard+Ext.swift in Sources */,
 				5FAE16F125D3FCE90058A105 /* GraphView.swift in Sources */,
 				5F71788825F0363400B8C738 /* MovieTableViewCell.swift in Sources */,
+				5F8FA250264160E900E24685 /* CGFloat+Random.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
