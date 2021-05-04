@@ -47,13 +47,17 @@ final class Tab4RootviewController: UIViewController {
             apply(animated: animated)
             
             if animated {
-                collectionView.scrollToItem(at: IndexPath(item: items.count - 1, section: 0),
-                                            at: .bottom,
-                                            animated: true)
+                scrollToLastItem()
             }
         }
     }
     
+    private func scrollToLastItem(animated: Bool = true) {
+        
+        collectionView.scrollToItem(at: IndexPath(item: items.count - 1, section: 0),
+                                    at: .bottom,
+                                    animated: true)
+    }
     
     // MARK: - Setup methods
     
@@ -117,7 +121,7 @@ final class Tab4RootviewController: UIViewController {
                         self?.items.append(image)
                     }
                     self?.apply(animated: true)
-                    
+                    self?.scrollToLastItem()
                     picker.dismiss(animated: true, completion: nil)
                 default:
                     return
