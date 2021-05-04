@@ -8,12 +8,11 @@
 import UIKit
 
 final class AlertManager: NSObject {
-
+    
     static var topViewController: UIViewController? {
         return UIApplication.topViewController()
     }
     
-
     static func showSettingsAlert(_ error: NSError? = nil) {
         
         let alert = UIAlertController(title: "Persmission required",
@@ -32,7 +31,6 @@ final class AlertManager: NSObject {
         topViewController?.present(alert, animated: true, completion: nil)
     }
     
-
     static func showAlert(withTitle title: String? = nil, message: String? = nil, actions: [UIAlertAction]? = nil, style: UIAlertController.Style = .alert) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: style)
@@ -45,6 +43,4 @@ final class AlertManager: NSObject {
         }
         topViewController?.present(alert, animated: true, completion: nil)
     }
-
 }
-
