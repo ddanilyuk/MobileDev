@@ -156,7 +156,10 @@ final class Tab3RootViewController: UIViewController {
         
         // Text fields
         alert.addTextField { $0.placeholder = "Movie title" }
-        alert.addTextField { $0.placeholder = "Year" }
+        alert.addTextField {
+            $0.keyboardType = .numberPad
+            $0.placeholder = "Year"
+        }
         alert.addTextField { $0.placeholder = "Type" }
         
         // Actions
@@ -166,6 +169,15 @@ final class Tab3RootViewController: UIViewController {
             guard let title = alert?.textFields?[0].text,
                   let year = alert?.textFields?[1].text,
                   let type = alert?.textFields?[2].text else {
+                return
+            }
+            
+            guard let intYear = Int(year),
+                  (1895...2030).contains(intYear) else {
+                
+                let alert = UIAlertController(title: "Invalid year", message: "", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default))
+                self?.present(alert, animated: true)
                 return
             }
             
