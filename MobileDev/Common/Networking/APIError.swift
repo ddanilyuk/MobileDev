@@ -14,6 +14,7 @@ enum APIError: ResponseError {
         
         case `default` = "Unexpected error"
         case notFound = "Movie not found!"
+        case tooManyResults = "Too many results."
         
         var message: String {
             switch self {
@@ -21,6 +22,8 @@ enum APIError: ResponseError {
                 return "Unexpected error"
             case .notFound:
                 return "Movie not found!"
+            case .tooManyResults:
+                return "Too many results."
             }
         }
     }

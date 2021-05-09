@@ -159,12 +159,18 @@ extension Tab3RootViewController {
             guard let self = self else {
                 return
             }
+            
             self.isLoading = false
             
             switch result {
             case .failure(let error):
                 switch error {
                 case .customError(.notFound):
+                    self.moviesPagination = Pagination<Movie>()
+                case .customError(.tooManyResults):
+                    // When user enter not latin letters
+                    // Server return this error
+                    // So i decidede to ignore this
                     self.moviesPagination = Pagination<Movie>()
                 default:
                     AlertManager.showErrorMessage(with: error.message)
@@ -195,12 +201,7 @@ extension Tab3RootViewController {
             
             switch result {
             case .failure(let error):
-                switch error {
-                case .customError(.notFound):
-                    self.moviesPagination = Pagination<Movie>()
-                default:
-                    AlertManager.showErrorMessage(with: error.message)
-                }
+                AlertManager.showErrorMessage(with: error.message)
                 
             case .success(let pagination):
                 self.moviesPagination.merge(with: pagination)
@@ -251,7 +252,6 @@ extension Tab3RootViewController: UISearchResultsUpdating {
             searchController.searchBar.text = currentSearch
         }
     }
-    
 }
 
 // MARK: - UISearchBarDelegate
