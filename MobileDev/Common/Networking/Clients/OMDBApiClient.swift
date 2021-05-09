@@ -15,6 +15,7 @@ import Alamofire
 protocol OMDBAPIClientable {
     
     func getMovies(with title: String, page: Int, _ completion: @escaping (_ response: Result<Pagination<Movie>, APIError>) -> Void)
+    func getMovieDetails(with id: String, _ completion: @escaping (_ response: Result<Movie, APIError>) -> Void)
 }
 
 // MARK: - OMDBAPIClient
@@ -26,11 +27,12 @@ final class OMDBAPIClient {
     enum Route: OMDBAPIRequestDataProvider {
         
         case getMovies(title: String, page: Int)
+        case getMovieDetails(id: String)
         
         var method: HTTP.Method {
             
             switch self {
-            case .getMovies:
+            case .getMovies, .getMovieDetails:
                 return .get
             }
         }
@@ -38,7 +40,7 @@ final class OMDBAPIClient {
         var path: String {
             
             switch self {
-            case .getMovies:
+            case .getMovies, .getMovieDetails:
                 return "/"
             }
         }
@@ -51,13 +53,15 @@ final class OMDBAPIClient {
                     "s": title,
                     "page": page
                 ]
+            case let .getMovieDetails(id):
+                return ["i": id]
             }
         }
         
         var encoding: ParameterEncoding {
             
             switch self {
-            case .getMovies:
+            case .getMovies, .getMovieDetails:
                 return URLEncoding.default
             }
         }
@@ -74,6 +78,15 @@ extension OMDBAPIClient: OMDBAPIClientable {
         FRIDAY
             .request(Route.getMovies(title: title, page: page))
             .responseJSON { (response: Response<Pagination<Movie>, APIError>) in
+                completion(response.result)
+            }
+    }
+    
+    func getMovieDetails(with id: String, _ completion: @escaping (Result<Movie, APIError>) -> Void) {
+        
+        FRIDAY
+            .request(Route.getMovieDetails(id: id))
+            .responseJSON { (response: Response<Movie, APIError>) in
                 completion(response.result)
             }
     }

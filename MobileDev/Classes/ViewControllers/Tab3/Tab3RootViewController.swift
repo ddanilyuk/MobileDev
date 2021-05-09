@@ -54,6 +54,12 @@ final class Tab3RootViewController: UIViewController {
         setupSearch()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        searchController.searchBar.becomeFirstResponder()
+    }
+    
     // MARK: - Setup methods
     
     private func setupTableView() {
@@ -96,11 +102,10 @@ final class Tab3RootViewController: UIViewController {
         
         return TableRow<MovieTableViewCell>(item: item)
             .on(.click) { [weak self] row in
-                guard let movie = self?.movieManager.getMovie(with: row.item.imdbID) else {
-                    return
+                self?.getMovieDetail(with: row.item.imdbID) { [weak self] movie in
+                    let controller = MovieDetailViewController.create(with: movie)
+                    self?.navigationController?.pushViewController(controller, animated: true)
                 }
-                let controller = MovieDetailViewController.create(with: movie)
-                self?.navigationController?.pushViewController(controller, animated: true)
             }
             .on(.previewForHighlightingContextMenu) { [weak self] item -> UITargetedPreview in
                 
@@ -149,7 +154,7 @@ extension Tab3RootViewController {
         
         isLoading = true
         
-        movieManager.getMovies(title: title, page: 1) { [weak self] result in
+        movieManager.getMovies(title: title.lowercased(), page: 1) { [weak self] result in
             
             guard let self = self else {
                 return
@@ -203,6 +208,23 @@ extension Tab3RootViewController {
             }
         }
     }
+    
+    func getMovieDetail(with id: String, completion: ((Movie) -> Void)?) {
+        
+        Loader.show()
+        
+        movieManager.getMovieDetail(with: id) { result in
+            
+            Loader.hide()
+            
+            switch result {
+            case .failure(let error):
+                AlertManager.showErrorMessage(with: error.message)
+            case .success(let movie):
+                completion?(movie)
+            }
+        }
+    }
 }
 
 // MARK: - UISearchResultsUpdating
@@ -211,7 +233,7 @@ extension Tab3RootViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         
-        guard let enteredText = searchController.searchBar.text?.lowercased(),
+        guard let enteredText = searchController.searchBar.text,
               !enteredText.isEmpty,
               currentSearch != enteredText,
               enteredText.count > 2 else {
@@ -222,6 +244,14 @@ extension Tab3RootViewController: UISearchResultsUpdating {
             getMovies(title: enteredText)
         }
     }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        if isLoading {
+            searchController.searchBar.text = currentSearch
+        }
+    }
+    
 }
 
 // MARK: - UISearchBarDelegate

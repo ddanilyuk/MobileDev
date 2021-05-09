@@ -22,7 +22,7 @@ struct App {
     
     static let pixabayAPI: API = {
         
-        guard let value = Bundle.main.object(forInfoDictionaryKey: "ServerEnvironmentOMDB") as? String else {
+        guard let value = Bundle.main.object(forInfoDictionaryKey: "ServerEnvironmentPixabay") as? String else {
             return .developmentPixabay
         }
         return API(rawValue: value) ?? .developmentPixabay
@@ -32,7 +32,7 @@ struct App {
     static func setup() {
         
         IQKeyboardManager.shared.enable = true
-        IQKeyboardManager.shared.enableAutoToolbar = false
+        IQKeyboardManager.shared.enableAutoToolbar = true
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         
         API.setup()

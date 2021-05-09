@@ -44,6 +44,15 @@ final class MoviesManager {
             completion?(result)
         }
     }
+    
+    func getMovieDetail(with id: String, completion: ((Result<Movie, APIError>) -> Void)?) {
+        
+        omdbIDApiClient.getMovieDetails(with: id) { result in
+            
+            // TODO: Save to DB if needed
+            completion?(result)
+        }
+    }
 
     func getMovie(with id: String) -> Movie? {
         
