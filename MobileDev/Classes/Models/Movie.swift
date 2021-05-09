@@ -41,10 +41,30 @@ struct Movie {
     let actors, plot, language, country: String?
     let awards, imdbRating, imdbVotes: String?
     
-    var posterImage: UIImage? {
-        return poster.isEmpty
-            ? UIImage.filmPlaceholder
-            : UIImage(named: poster)
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        title = try container.decode(String.self, forKey: .title)
+        year = try container.decode(String.self, forKey: .year)
+        imdbID = try container.decode(String.self, forKey: .imdbID)
+        type = try container.decode(String.self, forKey: .type)
+        poster = try container.decode(String.self, forKey: .poster)
+        
+        rated = try container.decodeIfPresent(String.self, forKey: .rated)
+        released = try container.decodeIfPresent(String.self, forKey: .released)
+        production = try container.decodeIfPresent(String.self, forKey: .production)
+        runtime = try container.decodeIfPresent(String.self, forKey: .runtime)
+        genre = try container.decodeIfPresent(String.self, forKey: .genre)
+        director = try container.decodeIfPresent(String.self, forKey: .director)
+        writer = try container.decodeIfPresent(String.self, forKey: .writer)
+        actors = try container.decodeIfPresent(String.self, forKey: .actors)
+        plot = try container.decodeIfPresent(String.self, forKey: .plot)
+        language = try container.decodeIfPresent(String.self, forKey: .language)
+        country = try container.decodeIfPresent(String.self, forKey: .country)
+        awards = try container.decodeIfPresent(String.self, forKey: .awards)
+        imdbRating = try container.decodeIfPresent(String.self, forKey: .imdbRating)
+        imdbVotes = try container.decodeIfPresent(String.self, forKey: .imdbVotes)
     }
     
     init(title: String, year: String, type: String) {

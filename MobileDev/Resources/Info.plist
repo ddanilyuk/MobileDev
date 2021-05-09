@@ -30,10 +30,25 @@
 	<string>Main</string>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
-    <key>NSCameraUsageDescription</key>
-    <string>Add a Profile Picture by allowing MobileDev to access your photo gallery.</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Add a Profile Picture by allowing MobileDev to access your photo gallery.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Add a Profile Picture by allowing MobileDev to access your photo gallery.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Add a Profile Picture by allowing MobileDev to access your photo gallery.</string>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+        <key>NSExceptionDomains</key>
+        <dict>
+            <key>yourdomain.com</key>
+            <dict>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+                <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+                <false/>
+            </dict>
+        </dict>
+    </dict>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

@@ -98,7 +98,7 @@ final class MovieDetailViewController: UIViewController {
         navigationItem.hidesBackButton = true
         backButtonView.layer.masksToBounds = true
         movieTitleLabel.text = movie.title
-        posterImageView.image = movie.posterImage
+        posterImageView.sd_setImage(with: URL(string: movie.poster), placeholderImage: UIImage.filmPlaceholder, options: [], completed: nil)
         
         layoutState = UIApplication.interfaceOrientation.isLandscape ? .landscape : .exapnded
         setLayout(with: layoutState)

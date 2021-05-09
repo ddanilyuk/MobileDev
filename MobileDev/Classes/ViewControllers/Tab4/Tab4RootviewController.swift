@@ -11,8 +11,8 @@ final class Tab4RootviewController: UIViewController {
     
     // MARK: - Typealises
     
-    typealias DataSource = UICollectionViewDiffableDataSource<UICollectionView.Section, UIImage>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<UICollectionView.Section, UIImage>
+    typealias DataSource = UICollectionViewDiffableDataSource<UICollectionView.Section, PixabayImage>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<UICollectionView.Section, PixabayImage>
     
     // MARK: - IBOutlets
     
@@ -21,8 +21,18 @@ final class Tab4RootviewController: UIViewController {
     // MARK: - Private properties
     
     private var dataSource: DataSource!
-    private var items: [UIImage] = []
+    private var paginationImages: PixabayPagination<PixabayImage> = PixabayPagination<PixabayImage>()
     private let imagePicker = ImagePicker(type: .image)
+    private let pixabayAPIClient: PixabayAPIClientable = PixabayAPIClient.shared
+    lazy var spinner: UIActivityIndicatorView = {
+        
+        let spinner = UIActivityIndicatorView(style: .medium)
+        spinner.color = .black
+        spinner.hidesWhenStopped = true
+        spinner.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 44)
+        
+        return spinner
+    }()
     
     // MARK: - Lifecycle
     
@@ -31,32 +41,7 @@ final class Tab4RootviewController: UIViewController {
         
         setupCollectionView()
         setupDataSource()
-        
-        (0...5).forEach { _ in
-            addRandomSolidImage(animated: true)
-        }
-    }
-    
-    private func addRandomSolidImage(animated: Bool = true) {
-        
-        let newImage = UIImage(color: .random(), size: UIScreen.main.bounds.size)
-        
-        if let newImage = newImage, !items.contains(newImage) {
-            
-            items.append(newImage)
-            apply(animated: animated)
-            
-            if animated {
-                scrollToLastItem()
-            }
-        }
-    }
-    
-    private func scrollToLastItem(animated: Bool = true) {
-        
-        collectionView.scrollToItem(at: IndexPath(item: items.count - 1, section: 0),
-                                    at: .bottom,
-                                    animated: true)
+        getImages()
     }
     
     // MARK: - Setup methods
@@ -66,12 +51,13 @@ final class Tab4RootviewController: UIViewController {
         let layout = CustomCompositionalLayout.create()
         
         collectionView.setCollectionViewLayout(layout, animated: false)
+        collectionView.delegate = self
     }
     
     private func setupDataSource() {
         
-        let cellRegistration = UICollectionView.CellRegistration<ImageCell, UIImage> { (cell, _, item) in
-            cell.imageView.image = item
+        let cellRegistration = UICollectionView.CellRegistration<ImageCell, PixabayImage> { (cell, _, item) in
+            cell.imageView.sd_setImage(with: URL(string: item.imageURL), placeholderImage: UIImage.imagePlaceholder, options: [], context: nil)
         }
         
         dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, identifier in
@@ -84,60 +70,67 @@ final class Tab4RootviewController: UIViewController {
         
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
-        snapshot.appendItems(items)
+        snapshot.appendItems(paginationImages.items)
         
         dataSource.apply(snapshot, animatingDifferences: animated)
     }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension Tab4RootviewController: UICollectionViewDelegate {
     
-    // MARK: - Image picker
-    
-    private func addImage() {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
-        let cameraAction = UIAlertAction(title: "Camera", style: .default) { [weak self] _ in
-            self?.showMediaPicker(with: .camera)
+        guard indexPath.row >= collectionView.numberOfItems(inSection: 0) - 1,
+              let nextPage = paginationImages.nextPage else {
+            return
         }
         
-        let photoLibraryAction = UIAlertAction(title: "Photo library", style: .default) { [weak self] _ in
-            self?.showMediaPicker(with: .photoLibrary)
-        }
-        
-        let closeAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        AlertManager.showAlert(withTitle: "Add image",
-                               actions: [cameraAction, photoLibraryAction, closeAction],
-                               style: .actionSheet)
+        getNextPage(page: nextPage)
     }
+}
+
+// MARK: - API
+
+extension Tab4RootviewController {
     
-    private func showMediaPicker(with sourceType: UIImagePickerController.SourceType) {
+    func getImages() {
         
-        imagePicker
-            .presentInViewController(self, isEditable: true, sourceType: sourceType) { [weak self] result in
+        Loader.show()
+        
+        pixabayAPIClient.getImages(page: 1) { result in
+            
+            Loader.hide()
+            
+            switch result {
+            case .failure(let error):
+                AlertManager.showErrorMessage(with: error.message)
+            case .success(let pixabayPagination):
                 
-                switch result {
-                case .success(let image, let editedImage, _, let picker):
-                    if let editedImage = editedImage {
-                        self?.items.append(editedImage)
-                    } else {
-                        self?.items.append(image)
-                    }
-                    self?.apply(animated: true)
-                    self?.scrollToLastItem()
-                    picker.dismiss(animated: true, completion: nil)
-                default:
-                    return
-                }
+                self.paginationImages = pixabayPagination
+                self.apply(animated: true)
             }
+        }
     }
     
-    // MARK: - IBActions
-    
-    @IBAction func randomColorAction(_ sender: UIButton) {
+    func getNextPage(page: Int) {
         
-        addRandomSolidImage(animated: true)
-    }
-    
-    @IBAction func addImageAction(_ sender: UIButton) {
+        // TODO: Change loader
+        Loader.show()
         
-        addImage()
+        pixabayAPIClient.getImages(page: page) { result in
+            
+            Loader.hide()
+            
+            switch result {
+            case .failure(let error):
+                AlertManager.showErrorMessage(with: error.message)
+            case .success(let pixabayPagination):
+                
+                self.paginationImages.merge(with: pixabayPagination)
+                self.apply(animated: true)
+            }
+        }
     }
 }

@@ -6,15 +6,17 @@
 //
 
 import Foundation
+import Alamofire
 
 final class MoviesManager {
     
     static var shared = MoviesManager()
     static var movieList = "MoviesList"
-    
     static let moviesListName = "MoviesList"
     
     private init () { }
+    
+    private let omdbIDApiClient: OMDBAPIClientable = OMDBAPIClient.shared
     
     // MARK: - Public methods
     
@@ -34,6 +36,24 @@ final class MoviesManager {
         return []
     }
     
+    func getMovies(title: String, page: Int, completion: ((Result<Pagination<Movie>, APIError>) -> Void)?) {
+
+        omdbIDApiClient.getMovies(with: title, page: page) { result in
+            
+            // TODO: Save to DB if needed
+            completion?(result)
+        }
+    }
+    
+    func getMovieDetail(with id: String, completion: ((Result<Movie, APIError>) -> Void)?) {
+        
+        omdbIDApiClient.getMovieDetails(with: id) { result in
+            
+            // TODO: Save to DB if needed
+            completion?(result)
+        }
+    }
+
     func getMovie(with id: String) -> Movie? {
         
         guard !id.isEmpty else {

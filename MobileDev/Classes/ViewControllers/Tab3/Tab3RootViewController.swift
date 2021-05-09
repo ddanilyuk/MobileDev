@@ -23,28 +23,54 @@ final class Tab3RootViewController: UIViewController {
     private var tableDirector: TableDirector!
     private var searchController: UISearchController!
     private var movieManager = MoviesManager.shared
-    private var movies: [Movie] = []
-    private var filteredMovies: [Movie] = []
-    private var isSearching = false
+    private var currentSearch: String = ""
+    private var pendingRequestWorkItem: DispatchWorkItem?
+    private var moviesPagination = Pagination<Movie>() {
+        didSet {
+            moviesPagination.items.isEmpty ? tableView.addPlaceholder() : tableView.removePlaceholder()
+        }
+    }
+    private var isLoading: Bool = false {
+        didSet {
+            isLoading ? Loader.show() : Loader.hide()
+        }
+    }
+    
+    lazy var spinner: UIActivityIndicatorView = {
+        
+        let spinner = UIActivityIndicatorView(style: .medium)
+        spinner.color = .black
+        spinner.hidesWhenStopped = true
+        spinner.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 44)
+        
+        return spinner
+    }()
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        movies = movieManager.fetchMovies()
         setupTableView()
         setupSearch()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        searchController.searchBar.becomeFirstResponder()
     }
     
     // MARK: - Setup methods
     
     private func setupTableView() {
         
-        tableView.tableFooterView = UIView()
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         tableView.separatorStyle = .none
+        tableView.tableFooterView = spinner
+        
         updateTableView()
+        tableView.addPlaceholder()
     }
     
     private func setupSearch() {
@@ -65,8 +91,7 @@ final class Tab3RootViewController: UIViewController {
         
         let section = TableSection()
         
-        let data = isSearching ? filteredMovies : movies
-        data.forEach { movie in
+        moviesPagination.items.forEach { movie in
             let row = createRow(from: movie)
             section += row
         }
@@ -78,23 +103,9 @@ final class Tab3RootViewController: UIViewController {
         
         return TableRow<MovieTableViewCell>(item: item)
             .on(.click) { [weak self] row in
-                guard let movie = self?.movieManager.getMovie(with: row.item.imdbID) else {
-                    return
-                }
-                let controller = MovieDetailViewController.create(with: movie)
-                self?.navigationController?.pushViewController(controller, animated: true)
-            }
-            .on(.showContextMenu) { item -> UIContextMenuConfiguration in
-                return UIContextMenuConfiguration(identifier: item.indexPath as NSIndexPath, previewProvider: nil) { _ in
-                    
-                    var actions: [UIAction] = []
-                    let deleteUIAction = UIAction(title: "Delete", image: .trash, attributes: .destructive) { _ in
-                        DispatchQueue.main.async {
-                            self.deleteMovie(item.item, at: item.indexPath)
-                        }
-                    }
-                    actions.append(deleteUIAction)
-                    return UIMenu(children: actions)
+                self?.getMovieDetail(with: row.item.imdbID) { [weak self] movie in
+                    let controller = MovieDetailViewController.create(with: movie)
+                    self?.navigationController?.pushViewController(controller, animated: true)
                 }
             }
             .on(.previewForHighlightingContextMenu) { [weak self] item -> UITargetedPreview in
@@ -111,6 +122,16 @@ final class Tab3RootViewController: UIViewController {
                 }
                 return self.createTargetedPreview(for: item)
             }
+            .on(.willDisplay) { [weak self] options in
+                
+                guard let self = self,
+                      let nextPage = self.moviesPagination.nextPage,
+                      options.indexPath.row >= self.moviesPagination.items.count - 1 else {
+                    return
+                }
+                
+                self.getNextPage(page: nextPage)
+            }
     }
     
     private func createTargetedPreview(for item: TableRowActionOptions<MovieTableViewCell>) -> UITargetedPreview {
@@ -122,69 +143,90 @@ final class Tab3RootViewController: UIViewController {
         parameters.shadowPath = UIBezierPath(roundedRect: view.bounds, cornerRadius: 20)
         return UITargetedPreview(view: view, parameters: parameters)
     }
+}
+
+// MARK: - API
+
+extension Tab3RootViewController {
     
-    private func createNewMovie(title: String, year: String, type: String) {
+    func getMovies(title: String) {
         
-        let newMovie = Movie(title: title, year: year, type: type)
-        let newIndexPath = IndexPath(row: movies.count, section: 0)
+        self.currentSearch = title
         
-        let row = createRow(from: newMovie)
+        isLoading = true
         
-        movies.append(newMovie)
-        
-        tableView.beginUpdates()
-        tableView.insertRows(at: [newIndexPath], with: .fade)
-        tableDirector.sections.first?.append(row: row)
-        tableView.endUpdates()
-        
-        tableView.scrollToRow(at: newIndexPath, at: .bottom, animated: true)
-    }
-    
-    private func deleteMovie(_ movie: Movie, at indexPath: IndexPath) {
-        
-        tableView.beginUpdates()
-        tableDirector.sections.first?.delete(rowAt: indexPath.row)
-        tableView.deleteRows(at: [indexPath], with: .fade)
-        tableView.endUpdates()
-        
-        movies.removeAll { $0.title == movie.title }
-    }
-    
-    @IBAction func addMovieAction(_ sender: UIBarButtonItem) {
-        
-        let alert = UIAlertController(title: "Add new movie", message: "", preferredStyle: .alert)
-        
-        // Text fields
-        alert.addTextField { $0.placeholder = "Movie title" }
-        alert.addTextField {
-            $0.keyboardType = .numberPad
-            $0.placeholder = "Year"
-        }
-        alert.addTextField { $0.placeholder = "Type" }
-        
-        // Actions
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        alert.addAction(UIAlertAction(title: "Add", style: .default) { [weak alert, weak self] _ in
+        movieManager.getMovies(title: title.lowercased().trimmingCharacters(in: .whitespacesAndNewlines),
+                               page: 1) { [weak self] result in
             
-            guard let title = alert?.textFields?[0].text,
-                  let year = alert?.textFields?[1].text,
-                  let type = alert?.textFields?[2].text else {
+            guard let self = self else {
                 return
             }
             
-            guard let intYear = Int(year),
-                  (1895...2030).contains(intYear) else {
+            self.isLoading = false
+            
+            switch result {
+            case .failure(let error):
+                switch error {
+                case .customError(.notFound):
+                    self.moviesPagination = Pagination<Movie>()
+                case .customError(.tooManyResults):
+                    // When user enter not latin letters
+                    // Server return this error
+                    // So i decidede to ignore this
+                    self.moviesPagination = Pagination<Movie>()
+                default:
+                    AlertManager.showErrorMessage(with: error.message)
+                }
                 
-                let alert = UIAlertController(title: "Invalid year", message: "", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default))
-                self?.present(alert, animated: true)
+            case .success(let pagination):
+                self.moviesPagination = pagination
+                self.updateTableView()
+            }
+        }
+    }
+    
+    func getNextPage(page: Int) {
+        
+        guard !spinner.isAnimating else {
+            return
+        }
+        
+        spinner.startAnimating()
+        
+        movieManager.getMovies(title: currentSearch, page: page) { [weak self] result in
+            
+            self?.spinner.stopAnimating()
+            
+            guard let self = self else {
                 return
             }
             
-            self?.createNewMovie(title: title, year: year, type: type)
-        })
+            switch result {
+            case .failure(let error):
+                AlertManager.showErrorMessage(with: error.message)
+                
+            case .success(let pagination):
+                self.moviesPagination.merge(with: pagination)
+                self.updateTableView()
+            }
+        }
+    }
+    
+    func getMovieDetail(with id: String, completion: ((Movie) -> Void)?) {
         
-        present(alert, animated: true)
+        Loader.show()
+        
+        movieManager.getMovieDetail(with: id) { result in
+            
+            Loader.hide()
+            
+            switch result {
+            case .failure(let error):
+                AlertManager.showErrorMessage(with: error.message)
+            case .success(let movie):
+                completion?(movie)
+            }
+        }
     }
 }
 
@@ -194,17 +236,27 @@ extension Tab3RootViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         
-        guard let enteredText = searchController.searchBar.text?.lowercased(),
-              !enteredText.isEmpty else {
-            isSearching = false
-            updateTableView()
+        pendingRequestWorkItem?.cancel()
+        
+        guard let enteredText = searchController.searchBar.text,
+              enteredText.count > 2 else {
             return
         }
+                
+        let requestWorkItem = DispatchWorkItem { [weak self] in
+            self?.getMovies(title: enteredText)
+        }
         
-        filteredMovies = movies.filter { $0.title.lowercased().contains(enteredText) }
-        filteredMovies.isEmpty ? tableView.addPlaceholder() : tableView.removePlaceholder()
-        isSearching = true
-        updateTableView()
+        // Save the new work item and execute it after 500 ms (if user dont change any text)
+        pendingRequestWorkItem = requestWorkItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: requestWorkItem)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        if isLoading {
+            searchController.searchBar.text = currentSearch
+        }
     }
 }
 
@@ -214,8 +266,7 @@ extension Tab3RootViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
-        isSearching = false
-        tableView.removePlaceholder()
+        moviesPagination = Pagination<Movie>()
         updateTableView()
     }
 }

@@ -15,11 +15,12 @@
 <br/>
 <br/>
 <p align="center">
-    Лабораторна робота №5
+    Лабораторна робота №6
 </p>
 <p align="center">
     з дисципліни “Програмування мобільних систем”
 </p>
+
 
 
 
@@ -48,6 +49,8 @@
 ## Варіант № 1
 (8208 mod 6) + 1 = 1
 
+(8208 mod 2) + 1 = 1
+
 ## Скріншоти роботи додатка
 
 <img src="https://github.com/ddanilyuk/MobileDev/blob/lab/3/Images/lab3/1.gif" width="300">
@@ -55,6 +58,8 @@
 <img src="https://github.com/ddanilyuk/MobileDev/blob/lab/4/Images/lab4/1.gif" width="300">
 
 <img src="https://github.com/ddanilyuk/MobileDev/blob/lab/5/Images/lab5/1.gif" width="300">
+
+<img src="https://github.com/ddanilyuk/MobileDev/blob/lab/6/Images/lab6/1.gif" width="300">
 
 ## Висновок
 
