@@ -10,8 +10,12 @@ import Foundation
 struct Constants {
     
     struct API {
-        static var omdbIDKey = "8d76b16b"
-        static var omdbIDRoute = "www.omdbapi.com"
-        static var perPage = 10
+        
+        static var omdbAPIKey = "8d76b16b"
+        static var pixabayAPIKey = "19193969-87191e5db266905fe8936d565"
+        static var pixabayRequest = "yellow+flowers"
+
+        static var perPageOMDB = 10
+        static var perPagePixabay = 27
     }
 }

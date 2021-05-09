@@ -1,24 +1,25 @@
 //
-//  Pagination.swift
+//  PixabayPagination.swift
 //  MobileDev
 //
-//  Created by Denys Danyliuk on 11.02.2021.
+//  Created by Denys Danyliuk on 10.05.2021.
 //
 
 import Foundation
 
-struct Pagination<Parsable: Decodable>: Decodable {
+// TODO: Delete and add another CodingKeys to Pagination
+struct PixabayPagination<Parsable: Decodable>: Decodable {
     
     // MARK: - Public properties
     
     var total: Int
     var items: [Parsable]
-        
+    
     // MARK: - Computed properties
     
     var perPage: Int {
         
-        return Constants.API.perPageOMDB
+        return Constants.API.perPagePixabay
     }
     
     var nextPage: Int? {
@@ -34,8 +35,8 @@ struct Pagination<Parsable: Decodable>: Decodable {
     
     enum CodingKeys: String, CodingKey {
         
-        case total = "totalResults"
-        case items = "Search"
+        case total = "totalHits"
+        case items = "hits"
     }
     
     // MARK: - Lifecycle
@@ -45,17 +46,9 @@ struct Pagination<Parsable: Decodable>: Decodable {
         items = []
     }
     
-    init(from decoder: Decoder) throws {
-        
-        let containier = try decoder.container(keyedBy: CodingKeys.self)
-        
-        total = Int(try containier.decode(String.self, forKey: .total)) ?? 0
-        items = try containier.decode([Parsable].self, forKey: .items)
-    }
-    
     // MARK: - Public methods
     
-    mutating func merge(with pagination: Pagination<Parsable>) {
+    mutating func merge(with pagination: PixabayPagination<Parsable>) {
         
         total = pagination.total
         items.append(contentsOf: pagination.items)

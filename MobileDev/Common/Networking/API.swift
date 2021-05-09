@@ -22,11 +22,11 @@ enum API: String {
         case .developmentOMDB:
             return URL(string: "http://www.omdbapi.com/")!
         case .developmentPixabay:
-            return URL(string: "http://www.omdbapi.com/")!
+            return URL(string: "https://pixabay.com/")!
         case .productionOMDB:
             return URL(string: "http://www.omdbapi.com/")!
         case .productionPixabay:
-            return URL(string: "https://")!
+            return URL(string: "https://pixabay.com/")!
         }
     }
     
@@ -57,33 +57,10 @@ enum API: String {
     }
     
     var apiURL: URL {
-        return baseURL
-    }
-    
-    var clientID: String {
-        switch self {
-        case .developmentOMDB:
-            return "0bef2c1f-2d28-4efd-9211-00241ed958cb"
-        case .developmentPixabay:
-            return ""
-        case .productionOMDB:
-            return ""
-        case .productionPixabay:
-            return "/api"
-        }
-    }
-    
-    var clientSecret: String {
-        switch self {
-        case .developmentOMDB:
-            return "jLpOJ7S59U30MR9lPmAZmTktV4HGOcbXVYu7kVfYDKqpvN3S"
-        case .developmentPixabay:
-            return ""
-        case .productionOMDB:
-            return ""
-        case .productionPixabay:
-            return "/api"
-        }
+        
+        var url = self.baseURL
+        url.appendPathComponent(self.apiPath)
+        return url
     }
     
     static var defaultTimeoutInterval: TimeInterval {
@@ -132,7 +109,7 @@ extension OMDBAPIRequestDataProvider {
     
     var headers: HTTP.Headers? {
         
-        return [:]
+        return nil
     }
     
     var adapter: ((URLRequest) -> URLRequest)? {
@@ -140,10 +117,12 @@ extension OMDBAPIRequestDataProvider {
             var urlRequest = request
             urlRequest.allHTTPHeaderFields = self.headers
             
-            let apiKey = URLQueryItem(name: "apikey",
-                                      value: Constants.API.omdbIDKey)
+            let apiKeyItem = URLQueryItem(name: "apikey",
+                                          value: Constants.API.omdbAPIKey)
+            
+            
             var components = URLComponents(url: urlRequest.url!, resolvingAgainstBaseURL: true)
-            components?.queryItems?.append(apiKey)
+            components?.queryItems?.append(apiKeyItem)
             urlRequest.url = components?.url
             return urlRequest
         }
@@ -161,17 +140,26 @@ extension PixabayAPIRequestDataProvider {
     
     var headers: HTTP.Headers? {
         
-        //        if let token = App.userSession.accessToken {
-        //
-        //            return ["Authorization": "Bearer \(token)"]
-        //        }
-        return [:]
+        return nil
     }
     
     var adapter: ((URLRequest) -> URLRequest)? {
         return { request in
             var urlRequest = request
             urlRequest.allHTTPHeaderFields = self.headers
+            
+            let apiKeyItem = URLQueryItem(name: "key",
+                                          value: Constants.API.pixabayAPIKey)
+            let perPageItem = URLQueryItem(name: "per_page",
+                                           value: String(Constants.API.perPagePixabay))
+            let requestTypeItem = URLQueryItem(name: "q",
+                                               value: Constants.API.pixabayRequest)
+            
+            var components = URLComponents(url: urlRequest.url!, resolvingAgainstBaseURL: true)
+            components?.queryItems?.append(apiKeyItem)
+            components?.queryItems?.append(perPageItem)
+            components?.queryItems?.append(requestTypeItem)
+            urlRequest.url = components?.url
             return urlRequest
         }
     }

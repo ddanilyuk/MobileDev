@@ -52,6 +52,9 @@
 		5F73516626486D5A00373D2B /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F73516526486D5A00373D2B /* App.swift */; };
 		5F73516926486EA200373D2B /* OMDBApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F73516826486EA200373D2B /* OMDBApiClient.swift */; };
 		5F73516B26486EEF00373D2B /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F73516A26486EEF00373D2B /* APIError.swift */; };
+		5F73516D26488BAA00373D2B /* PixabayAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F73516C26488BAA00373D2B /* PixabayAPIClient.swift */; };
+		5F73516F26488C8F00373D2B /* PixabayImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F73516E26488C8F00373D2B /* PixabayImage.swift */; };
+		5F73517126488D3300373D2B /* PixabayPagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F73517026488D3300373D2B /* PixabayPagination.swift */; };
 		5F8FA24026407B3900E24685 /* Tab4RootviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8FA23F26407B3900E24685 /* Tab4RootviewController.swift */; };
 		5F8FA24226407BEF00E24685 /* CustomCompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8FA24126407BEF00E24685 /* CustomCompositionalLayout.swift */; };
 		5F8FA24426407F0600E24685 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8FA24326407F0600E24685 /* ImageCell.swift */; };
@@ -119,6 +122,9 @@
 		5F73516526486D5A00373D2B /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		5F73516826486EA200373D2B /* OMDBApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMDBApiClient.swift; sourceTree = "<group>"; };
 		5F73516A26486EEF00373D2B /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		5F73516C26488BAA00373D2B /* PixabayAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayAPIClient.swift; sourceTree = "<group>"; };
+		5F73516E26488C8F00373D2B /* PixabayImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayImage.swift; sourceTree = "<group>"; };
+		5F73517026488D3300373D2B /* PixabayPagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayPagination.swift; sourceTree = "<group>"; };
 		5F8FA23F26407B3900E24685 /* Tab4RootviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab4RootviewController.swift; sourceTree = "<group>"; };
 		5F8FA24126407BEF00E24685 /* CustomCompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCompositionalLayout.swift; sourceTree = "<group>"; };
 		5F8FA24326407F0600E24685 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
@@ -428,6 +434,7 @@
 			isa = PBXGroup;
 			children = (
 				5F73516826486EA200373D2B /* OMDBApiClient.swift */,
+				5F73516C26488BAA00373D2B /* PixabayAPIClient.swift */,
 			);
 			path = Clients;
 			sourceTree = "<group>";
@@ -492,6 +499,8 @@
 			children = (
 				5FA4C88F25D571860055E4E3 /* Movie.swift */,
 				5FA4C89825D576CD0055E4E3 /* Pagination.swift */,
+				5F73517026488D3300373D2B /* PixabayPagination.swift */,
+				5F73516E26488C8F00373D2B /* PixabayImage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -672,6 +681,7 @@
 				5F214F3D2610AFF900B9F209 /* UITableView+Placeholder.swift in Sources */,
 				5F4C1B6725D32677006A84F9 /* Tab1RootViewController.swift in Sources */,
 				5F8FA2522641611E00E24685 /* UIImage+SolidColor.swift in Sources */,
+				5F73516F26488C8F00373D2B /* PixabayImage.swift in Sources */,
 				5F4C1B8D25D32874006A84F9 /* UIApplication+Keyboard.swift in Sources */,
 				5F8FA24426407F0600E24685 /* ImageCell.swift in Sources */,
 				5FAE16F625D3FD000058A105 /* ChartView.swift in Sources */,
@@ -687,6 +697,7 @@
 				5F0D3E4F25D5919A0060E84C /* MoviesManager.swift in Sources */,
 				5F6314B825DFBBE40040C157 /* String+Capitalized.swift in Sources */,
 				5F6314B125DFB5C50040C157 /* FieldTableViewCell.swift in Sources */,
+				5F73516D26488BAA00373D2B /* PixabayAPIClient.swift in Sources */,
 				5F73516426486BFB00373D2B /* API.swift in Sources */,
 				5F328AD325E95DE3007FD653 /* ShadowRoundedImageView.swift in Sources */,
 				5F8FA246264150F100E24685 /* ImagePicker.swift in Sources */,
@@ -697,6 +708,7 @@
 				5F4C1B6325D32677006A84F9 /* AppDelegate.swift in Sources */,
 				5F73515C26486A3200373D2B /* Loader.swift in Sources */,
 				5F8FA24D264160D600E24685 /* UIColor+Random.swift in Sources */,
+				5F73517126488D3300373D2B /* PixabayPagination.swift in Sources */,
 				5F0D3E8A25D5E62B0060E84C /* UIResponder+Identifier.swift in Sources */,
 				5F8FA24226407BEF00E24685 /* CustomCompositionalLayout.swift in Sources */,
 				5FA4C89925D576CD0055E4E3 /* Pagination.swift in Sources */,
