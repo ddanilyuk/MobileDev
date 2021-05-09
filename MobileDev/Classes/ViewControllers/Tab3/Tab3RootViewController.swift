@@ -24,6 +24,7 @@ final class Tab3RootViewController: UIViewController {
     private var searchController: UISearchController!
     private var movieManager = MoviesManager.shared
     private var currentSearch: String = ""
+    private var pendingRequestWorkItem: DispatchWorkItem?
     private var moviesPagination = Pagination<Movie>() {
         didSet {
             moviesPagination.items.isEmpty ? tableView.addPlaceholder() : tableView.removePlaceholder()
@@ -154,7 +155,8 @@ extension Tab3RootViewController {
         
         isLoading = true
         
-        movieManager.getMovies(title: title.lowercased(), page: 1) { [weak self] result in
+        movieManager.getMovies(title: title.lowercased().trimmingCharacters(in: .whitespacesAndNewlines),
+                               page: 1) { [weak self] result in
             
             guard let self = self else {
                 return
@@ -234,16 +236,20 @@ extension Tab3RootViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         
+        pendingRequestWorkItem?.cancel()
+        
         guard let enteredText = searchController.searchBar.text,
-              !enteredText.isEmpty,
-              currentSearch != enteredText,
               enteredText.count > 2 else {
             return
         }
-        
-        if !isLoading {
-            getMovies(title: enteredText)
+                
+        let requestWorkItem = DispatchWorkItem { [weak self] in
+            self?.getMovies(title: enteredText)
         }
+        
+        // Save the new work item and execute it after 500 ms (if user dont change any text)
+        pendingRequestWorkItem = requestWorkItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: requestWorkItem)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

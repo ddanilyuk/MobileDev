@@ -38,20 +38,6 @@ struct App {
         API.setup()
         
         FRIDAY.isLoggingEnabled = true
-        
-//        App.userSession.onActivation = {
-//            if let token = App.userSession.accessToken {
-//                SDWebImageDownloader.shared.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-//            }
-//        }
-//
-//        App.userSession.onDeactivation = {
-//            SDWebImageDownloader.shared.setValue("", forHTTPHeaderField: "Authorization")
-//        }
-//
-//        if let token = App.userSession.accessToken {
-//            SDWebImageDownloader.shared.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-//        }
     }
 }
 
