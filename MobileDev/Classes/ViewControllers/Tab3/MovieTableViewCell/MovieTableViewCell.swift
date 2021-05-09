@@ -13,7 +13,7 @@ final class MovieTableViewCell: UITableViewCell {
     // MARK: - IBOutlets
     
     @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var posterImage: UIImageView!
+    @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var yearLabel: UILabel!
@@ -39,7 +39,7 @@ final class MovieTableViewCell: UITableViewCell {
         
         let layer = CALayer()
         layer.backgroundColor = UIColor.black.withAlphaComponent(0.45).cgColor
-        posterImage.layer.addSublayer(layer)
+        posterImageView.layer.addSublayer(layer)
         
         mainView.layer.cornerRadius = 20
         mainView.layer.shadowRadius = 8
@@ -59,7 +59,7 @@ extension MovieTableViewCell: ConfigurableCell {
         
         titleLabel.text = model.title
         yearLabel.text = model.year
-        posterImage.image = model.posterImage
+        posterImageView.sd_setImage(with: URL(string: model.poster), placeholderImage: UIImage.filmPlaceholder, options: [], completed: nil)
         
         if !model.type.isEmpty && !model.year.isEmpty {
             typeLabel.text = "\(model.type.capitalized)   ·   "

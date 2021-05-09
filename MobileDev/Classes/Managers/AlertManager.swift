@@ -31,6 +31,13 @@ final class AlertManager: NSObject {
         topViewController?.present(alert, animated: true, completion: nil)
     }
     
+    static func showErrorMessage(with text: String?) {
+        
+        let alert = UIAlertController(title: "Error", message: text, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        topViewController?.present(alert, animated: true, completion: nil)
+    }
+    
     static func showAlert(withTitle title: String? = nil, message: String? = nil, actions: [UIAlertAction]? = nil, style: UIAlertController.Style = .alert) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: style)

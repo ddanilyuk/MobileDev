@@ -299,7 +299,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Movies" id="uGi-rb-wIU">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="YRw-F0-apB">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" style="plain" systemItem="add" id="YRw-F0-apB">
                             <connections>
                                 <action selector="addMovieAction:" destination="Qwa-HQ-8ND" id="bSL-sG-MMC"/>
                             </connections>
