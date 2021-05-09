@@ -13,11 +13,14 @@ enum APIError: ResponseError {
     enum CustomError: String {
         
         case `default` = "Unexpected error"
+        case notFound = "Movie not found!"
         
         var message: String {
             switch self {
             case .default:
                 return "Unexpected error"
+            case .notFound:
+                return "Movie not found!"
             }
         }
     }
@@ -88,21 +91,17 @@ enum APIError: ResponseError {
     
     static func errorMessage(for response: HTTPURLResponse?, data: Data?, error: Error?, statusCode: HTTP.StatusCode) -> APIError {
         
-        
         guard let json = data,
               let dictonary = try? JSONSerialization.jsonObject(with: json, options: []) as? [String: Any] else {
             
             return .parsingFailed
         }
         
-        let message = (dictonary["violations"] as? [[String: Any]])?.first?["message"] as? String
-        let code = (dictonary["violations"] as? [[String: Any]])?.first?["code"] as? String ?? ""
+        let message = dictonary["Error"] as? String ?? ""
         
-        if let customError = CustomError(rawValue: code) {
-            
+        if let customError = CustomError(rawValue: message) {
             return .customError(customError)
         } else {
-            
             return .networkError(statusCode, message: message)
         }
     }

@@ -29,6 +29,21 @@ final class Tab3RootViewController: UIViewController {
             moviesPagination.items.isEmpty ? tableView.addPlaceholder() : tableView.removePlaceholder()
         }
     }
+    private var isLoading: Bool = false {
+        didSet {
+            isLoading ? Loader.show() : Loader.hide()
+        }
+    }
+    
+    lazy var spinner: UIActivityIndicatorView = {
+        
+        let spinner = UIActivityIndicatorView(style: .medium)
+        spinner.color = .black
+        spinner.hidesWhenStopped = true
+        spinner.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 44)
+        
+        return spinner
+    }()
     
     // MARK: - Lifecycle
     
@@ -43,9 +58,10 @@ final class Tab3RootViewController: UIViewController {
     
     private func setupTableView() {
         
-        tableView.tableFooterView = UIView()
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         tableView.separatorStyle = .none
+        tableView.tableFooterView = spinner
+        
         updateTableView()
         tableView.addPlaceholder()
     }
@@ -108,7 +124,7 @@ final class Tab3RootViewController: UIViewController {
                     return
                 }
                 
-                self.getMovies(title: self.currentSearch, page: nextPage)
+                self.getNextPage(page: nextPage)
             }
     }
     
@@ -127,13 +143,46 @@ final class Tab3RootViewController: UIViewController {
 
 extension Tab3RootViewController {
     
-    func getMovies(title: String,  page: Int = 1) {
+    func getMovies(title: String) {
         
-        Loader.show()
+        self.currentSearch = title
         
-        movieManager.getMovies(title: title, page: page) { [weak self] result in
+        isLoading = true
+        
+        movieManager.getMovies(title: title, page: 1) { [weak self] result in
             
-            Loader.hide()
+            guard let self = self else {
+                return
+            }
+            self.isLoading = false
+            
+            switch result {
+            case .failure(let error):
+                switch error {
+                case .customError(.notFound):
+                    self.moviesPagination = Pagination<Movie>()
+                default:
+                    AlertManager.showErrorMessage(with: error.message)
+                }
+                
+            case .success(let pagination):
+                self.moviesPagination = pagination
+                self.updateTableView()
+            }
+        }
+    }
+    
+    func getNextPage(page: Int) {
+        
+        guard !spinner.isAnimating else {
+            return
+        }
+        
+        spinner.startAnimating()
+        
+        movieManager.getMovies(title: currentSearch, page: page) { [weak self] result in
+            
+            self?.spinner.stopAnimating()
             
             guard let self = self else {
                 return
@@ -141,14 +190,15 @@ extension Tab3RootViewController {
             
             switch result {
             case .failure(let error):
-                AlertManager.showErrorMessage(with: error.message)
-            case .success(let pagination):
-                
-                if page == 1 {
-                    self.moviesPagination = pagination
-                } else {
-                    self.moviesPagination.merge(with: pagination)
+                switch error {
+                case .customError(.notFound):
+                    self.moviesPagination = Pagination<Movie>()
+                default:
+                    AlertManager.showErrorMessage(with: error.message)
                 }
+                
+            case .success(let pagination):
+                self.moviesPagination.merge(with: pagination)
                 self.updateTableView()
             }
         }
@@ -168,8 +218,9 @@ extension Tab3RootViewController: UISearchResultsUpdating {
             return
         }
         
-        currentSearch = enteredText
-        getMovies(title: enteredText, page: 1)
+        if !isLoading {
+            getMovies(title: enteredText)
+        }
     }
 }
 
